@@ -12,7 +12,7 @@
 FactoryBot.define do
   factory :exam do
     title { "Test1" }
-    deadline { "2020-07-10" }
+    deadline { "2021-01-01" }
     release { false }
   end
 end
