@@ -12,14 +12,6 @@
 require 'rails_helper'
 
 RSpec.describe Exam, type: :model do
-  it 'タイトル、締切、公開が設定されている場合、有効である' do
-    exam = Exam.new(
-      title: 'test',
-      deadline: '2020-12-31',
-      release: false,
-    )
-    expect(exam).to be_valid
-  end
 
   it 'タイトルがない場合、無効である' do
     exam = Exam.new(
@@ -32,7 +24,7 @@ RSpec.describe Exam, type: :model do
 
   it '締切がない場合、無効である' do
     exam = Exam.new(
-      title: 'test',
+      title: 'Test',
       deadline: nil,
       release: false,
     )
@@ -41,7 +33,7 @@ RSpec.describe Exam, type: :model do
 
   it '締切が過去の場合、無効である' do
     exam = Exam.new(
-      title: 'test',
+      title: 'Test',
       deadline: '2001-01-01',
       release: false,
     )
@@ -50,10 +42,49 @@ RSpec.describe Exam, type: :model do
 
   it '公開は未入力でも、デフォルトでfalseが入る' do
     exam = Exam.new(
-      title: 'test',
+      title: 'Test',
       deadline: '2020-12-31',
       release: nil,
     )
     expect(exam).to be_valid
+  end
+
+  it '試験情報が正しく、問題も正しく入力されている場合、有効である' do
+    exam = Exam.new(
+      title: 'Test',
+      deadline: '2020-12-31',
+      release: false,
+    )
+    question = exam.questions.build(
+      content: 'TestContent',
+      correct_answer: 1,
+    )
+    expect(exam).to be_valid
+  end
+
+  it '試験情報は正しいが、問題の正解が未入力ならば、無効である' do
+    exam = Exam.new(
+      title: 'Test',
+      deadline: '2020-12-31',
+      release: false,
+    )
+    question = exam.questions.build(
+      content: 'TestContent',
+      correct_answer: nil,
+    )
+    expect(exam).to be_invalid
+  end
+
+  it '試験情報は正しいが、問題の内容が未入力ならば、無効である' do
+    exam = Exam.new(
+      title: 'Test',
+      deadline: '2020-12-31',
+      release: false,
+    )
+    question = exam.questions.build(
+      content: nil,
+      correct_answer: 1,
+    )
+    expect(exam).to be_invalid
   end
 end

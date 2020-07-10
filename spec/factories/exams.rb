@@ -11,8 +11,18 @@
 #
 FactoryBot.define do
   factory :exam do
-    title { "Test1" }
+    title { "ExamTitle" }
     deadline { "2021-01-01" }
     release { false }
+  end
+
+  factory :exam_with_question, class: Exam do
+    title { "ExamTitle" }
+    deadline { "2021-01-01" }
+    release { false }
+
+    after( :create ) do |exam|
+      create :question, exam: exam
+    end
   end
 end

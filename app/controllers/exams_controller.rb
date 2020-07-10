@@ -2,11 +2,12 @@ class ExamsController < ApplicationController
   before_action :set_exam, only: %i(show edit update destroy)
 
   def index
-    @exams = Exam.all
+    @exams = Exam.order(:id)
   end
 
   def new
     @exam = Exam.new
+    5.times { @exam.questions.build }
   end
 
   def create
@@ -42,6 +43,9 @@ class ExamsController < ApplicationController
     @exam = Exam.find(params[:id])
   end
   def exam_params
-    params.require(:exam).permit %i(title deadline release)
+    params.require(:exam).permit(:title, :deadline, :release,
+                                    questions_attributes:
+                                    %i[id _destroy description content correct_answer exam_id]
+                                   )
   end
 end
