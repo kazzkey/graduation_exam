@@ -8,8 +8,18 @@
 #  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  subject_id :bigint
+#
+# Indexes
+#
+#  index_exams_on_subject_id  (subject_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (subject_id => subjects.id)
 #
 class Exam < ApplicationRecord
+  belongs_to :subject
   has_many :questions, dependent: :destroy
   accepts_nested_attributes_for :questions, reject_if: :all_blank, allow_destroy: true
 

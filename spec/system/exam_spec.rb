@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe '試験作成機能', type: :system do
+
+  before do
+    FactoryBot.create(:subject)
+  end
+
   describe '試験一覧画面' do
     before do
       exam = FactoryBot.create(:exam_with_question)
@@ -33,6 +38,7 @@ RSpec.describe '試験作成機能', type: :system do
         visit exams_path
         click_on 'New'
         fill_in 'Title', with: 'test_title'
+        find('.subject').select('Japanese')
         fill_in 'Deadline', with: '002020-12-31'
         check 'Release'
         fill_in 'Content', with: 'QuestionContent', match: :first
@@ -58,6 +64,7 @@ RSpec.describe '試験作成機能', type: :system do
         click_on 'Show'
         sleep 0.5
         expect(page).to have_content 'ExamTitle'
+        expect(page).to have_content 'Japanese'
         expect(page).to have_content '2021-01-01'
         expect(page).to have_content '×'
         expect(page).to have_content 'QuestionText'

@@ -8,25 +8,49 @@
 #  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  subject_id :bigint
+#
+# Indexes
+#
+#  index_exams_on_subject_id  (subject_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (subject_id => subjects.id)
 #
 require 'rails_helper'
 
 RSpec.describe Exam, type: :model do
+  before do
+    Subject.create(id: 1, name: 'Japanese')
+  end
 
   it 'タイトルがない場合、無効である' do
     exam = Exam.new(
       title: nil,
       deadline: '2020-12-31',
       release: false,
+      subject_id: 1,
     )
     expect(exam).to be_invalid
   end
 
-  it '締切がない場合、無効である' do
+  it '科目が設定されていない場合、無効である' do
+    exam = Exam.new(
+      title: 'Test',
+      deadline: '2020-12-31',
+      release: false,
+      subject_id: nil,
+    )
+    expect(exam).to be_invalid
+  end
+
+  it '締切が設定されていない場合、無効である' do
     exam = Exam.new(
       title: 'Test',
       deadline: nil,
       release: false,
+      subject_id: 1,
     )
     expect(exam).to be_invalid
   end
@@ -36,15 +60,17 @@ RSpec.describe Exam, type: :model do
       title: 'Test',
       deadline: '2001-01-01',
       release: false,
+      subject_id: 1,
     )
     expect(exam).to be_invalid
   end
 
-  it '公開は未入力でも、デフォルトでfalseが入る' do
+  it '公開は未入力でも、デフォルトでfalseが入り、有効である' do
     exam = Exam.new(
       title: 'Test',
       deadline: '2020-12-31',
       release: nil,
+      subject_id: 1,
     )
     expect(exam).to be_valid
   end
@@ -54,6 +80,7 @@ RSpec.describe Exam, type: :model do
       title: 'Test',
       deadline: '2020-12-31',
       release: false,
+      subject_id: 1,
     )
     question = exam.questions.build(
       content: 'TestContent',
@@ -67,6 +94,7 @@ RSpec.describe Exam, type: :model do
       title: 'Test',
       deadline: '2020-12-31',
       release: false,
+      subject_id: 1,
     )
     question = exam.questions.build(
       content: 'TestContent',
@@ -80,6 +108,7 @@ RSpec.describe Exam, type: :model do
       title: 'Test',
       deadline: '2020-12-31',
       release: false,
+      subject_id: 1,
     )
     question = exam.questions.build(
       content: nil,

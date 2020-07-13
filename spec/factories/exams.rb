@@ -8,17 +8,28 @@
 #  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  subject_id :bigint
+#
+# Indexes
+#
+#  index_exams_on_subject_id  (subject_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (subject_id => subjects.id)
 #
 FactoryBot.define do
   factory :exam do
-    title { "ExamTitle" }
-    deadline { "2021-01-01" }
+    title { 'ExamTitle' }
+    subject_id { 1 }
+    deadline { '2021-01-01' }
     release { false }
   end
 
   factory :exam_with_question, class: Exam do
-    title { "ExamTitle" }
-    deadline { "2021-01-01" }
+    title { 'ExamTitle' }
+    subject_id { 1 }
+    deadline { '2021-01-01' }
     release { false }
 
     after( :create ) do |exam|

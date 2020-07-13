@@ -22,9 +22,9 @@
 #
 FactoryBot.define do
   factory :question do
-    content { "QuestionText" }
+    content { 'QuestionText' }
     correct_answer { 1 }
-    description { "QuestionDescription" }
+    description { 'QuestionDescription' }
     exam { nil }
   end
 end

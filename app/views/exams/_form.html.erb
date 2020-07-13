@@ -1,13 +1,24 @@
 <%= form_with(model: exam, local: true) do |form| %>
   <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-    <%= form.label :deadline %>
-    <%= form.date_field :deadline, value: Time.now.strftime("%Y-%m-%d") %>
-    <%= form.label :release %>
-    <%= form.check_box :release, {}, "true", "false" %>
+    <div>
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
+    <!-- class="subject"はRSpec用の設定 -->
+    <div class="subject">
+      <%= form.label :subject %>
+      <%= form.collection_select(:subject_id, Subject.all, :id, :name, prompt: "選択してください") %>
+    </div>
+    <div>
+      <%= form.label :deadline %>
+      <%= form.date_field :deadline, value: Time.now.strftime("%Y-%m-%d") %>
+    </div>
+    <div>
+      <%= form.label :release %>
+      <%= form.check_box :release, {}, "true", "false" %>
+    </div>
   </div>
-
+  <br>
 
   <!-- ネストフォーム(questions) -->
   <div>
