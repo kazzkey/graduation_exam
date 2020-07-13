@@ -2,7 +2,8 @@
 #
 # Table name: users
 #
-#  id                     :bigint           not null, primary key
+#  id                     :bigint           not null
+#  admin                  :boolean          default(FALSE)
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  email                  :string           default(""), not null
@@ -16,7 +17,7 @@
 #  sign_in_count          :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  student_id             :integer          not null
+#  student_id             :integer          not null, primary key
 #
 # Indexes
 #
@@ -26,6 +27,9 @@
 #
 FactoryBot.define do
   factory :user do
-    
+    student_id { 202020 }
+    name { '山田花子' }
+    email { 'yamada@example.com' }
+    password { 'password' }
   end
 end

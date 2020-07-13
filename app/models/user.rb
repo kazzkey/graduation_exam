@@ -2,7 +2,8 @@
 #
 # Table name: users
 #
-#  id                     :bigint           not null, primary key
+#  id                     :bigint           not null
+#  admin                  :boolean          default(FALSE)
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  email                  :string           default(""), not null
@@ -16,7 +17,7 @@
 #  sign_in_count          :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  student_id             :integer          not null
+#  student_id             :integer          not null, primary key
 #
 # Indexes
 #
@@ -30,9 +31,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
-  validates :student_id, uniqueness: true
-  validates :name,                         length: { maximum: 255 }
-  validates :email,      uniqueness: true, length: { maximum: 255 }
+  validates :student_id, presence: true, uniqueness: true
+  validates :name, presence: true, length: { maximum: 255 }
+  validates :email, uniqueness: true, length: { maximum: 255 }
 
   self.primary_key = "student_id"
 end
