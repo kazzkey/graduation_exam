@@ -1,0 +1,50 @@
+<%= form_with(model: exam, local: true) do |form| %>
+  <div>
+    <div>
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
+    <!-- class="subject"はRSpec用の設定 -->
+    <div class="subject">
+      <%= form.label :subject %>
+      <%= form.collection_select(:subject_id, Subject.all, :id, :name, prompt: "選択してください") %>
+    </div>
+    <div>
+      <%= form.label :deadline %>
+      <%= form.date_field :deadline, value: Time.now.strftime("%Y-%m-%d") %>
+    </div>
+    <div>
+      <%= form.label :release %>
+      <%= form.check_box :release, {}, "true", "false" %>
+    </div>
+  </div>
+  <br>
+
+  <!-- ネストフォーム(questions) -->
+  <div>
+    <%= form.fields_for :questions do |f| %>
+
+      <div class="image">
+        <%= f.label :image %>
+        <%= f.file_field :image %>
+      </div>
+
+      <div class="content">
+        <%= f.label :content %>
+        <%= f.text_area :content %>
+      </div>
+
+      <div class="field">
+        <%= f.label :correct_answer %>
+        <%= f.select :correct_answer, {'①':1, '②':2, '③':3, '④':4}, { include_blank: '選択してください' } %>
+      </div>
+
+      <div class="field">
+        <%= f.label :description %>
+        <%= f.text_field :description %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= form.submit "create" %>
+<% end %>

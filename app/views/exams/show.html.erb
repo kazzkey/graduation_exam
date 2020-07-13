@@ -1,0 +1,45 @@
+<h1>Exams#show</h1>
+
+<div>
+  <p>試験名：
+    <%= @exam.title %>
+  </p>
+</div>
+
+<div>
+  <p>科目：
+    <%= @exam.subject.name %>
+  </p>
+</div>
+
+<div>
+  <p>締切：
+    <%= @exam.deadline %>
+  </p>
+</div>
+
+<div>
+  <p>公開：
+    <%= @exam.release ? "○" : "×" %>
+  </p>
+</div>
+
+
+<!-- ネスト(questions) -->
+<% n = 0 %>
+<% @exam.questions.each do |question| %>
+
+  <div>
+    <strong><%= "問:#{n+=1}" %></strong>
+    <%= simple_format question.content %>
+    <% if question.image.present? %>
+      <p>
+        <%= image_tag question.image.url %>
+      </p>
+    <% end %>
+    <strong>正解:</strong>
+    <%= question.correct_answer %>
+      <strong>解説:</strong>
+    <%= question.description %>
+  </div>
+<% end %>

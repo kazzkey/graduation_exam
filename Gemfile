@@ -19,6 +19,9 @@ gem 'turbolinks', '~> 5'
 
 # Backend
 gem 'jbuilder', '~> 2.5'
+gem 'seed-fu'
+gem 'carrierwave'
+gem 'mini_magick'
 
 # Authentication
 
