@@ -34,5 +34,5 @@ class User < ApplicationRecord
   validates :name,                         length: { maximum: 255 }
   validates :email,      uniqueness: true, length: { maximum: 255 }
 
-  # self.primary_key = "student_id"
+  self.primary_key = "student_id"
 end
