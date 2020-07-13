@@ -34,22 +34,31 @@ RSpec.describe '試験作成機能', type: :system do
 
   describe '試験作成画面' do
     context '項目をすべて入力(問題は1問)してcreateを押した場合' do
-      it 'データが保存される' do
+      before do
         visit exams_path
         click_on 'New'
         fill_in 'Title', with: 'test_title'
         find('.subject').select('Japanese')
         fill_in 'Deadline', with: '002020-12-31'
         check 'Release'
+        attach_file 'Image', "#{Rails.root}/spec/factories/test.jpg", match: :first
         fill_in 'Content', with: 'QuestionContent', match: :first
         select '①', from: 'Correct answer', match: :first
         click_on 'create'
-        sleep 0.5
+      end
+
+      it 'データが保存されている' do
+        visit exams_path
         expect(page).to have_content 'test_title'
         expect(page).to have_content '2020-12-31'
         expect(page).to have_content '○'
+      end
+
+      it '詳細ページには問題情報も表示される' do
+        visit exams_path
         click_on 'Show'
         sleep 0.5
+        expect(page).to have_selector('img[src$="test.jpg"]')
         expect(page).to have_content 'QuestionContent'
         expect(page).to have_content '1'
       end
@@ -67,6 +76,7 @@ RSpec.describe '試験作成機能', type: :system do
         expect(page).to have_content 'Japanese'
         expect(page).to have_content '2021-01-01'
         expect(page).to have_content '×'
+        expect(page).to have_selector('img[src$="test.jpg"]')
         expect(page).to have_content 'QuestionText'
         expect(page).to have_content '1'
       end

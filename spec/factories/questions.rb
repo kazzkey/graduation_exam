@@ -23,6 +23,7 @@
 FactoryBot.define do
   factory :question do
     content { 'QuestionText' }
+    image { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/factories/test.jpg')) }
     correct_answer { 1 }
     description { 'QuestionDescription' }
     exam { nil }

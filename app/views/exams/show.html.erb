@@ -32,6 +32,11 @@
   <div>
     <strong><%= "問:#{n+=1}" %></strong>
     <%= simple_format question.content %>
+    <% if question.image.present? %>
+      <p>
+        <%= image_tag question.image.url %>
+      </p>
+    <% end %>
     <strong>正解:</strong>
     <%= question.correct_answer %>
       <strong>解説:</strong>

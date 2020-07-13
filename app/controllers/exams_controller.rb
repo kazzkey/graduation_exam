@@ -45,7 +45,7 @@ class ExamsController < ApplicationController
   def exam_params
     params.require(:exam).permit(:title, :deadline, :release, :subject_id,
                                     questions_attributes:
-                                    %i[id _destroy description content correct_answer exam_id]
+                                    %i[id _destroy image content correct_answer description exam_id]
                                    )
   end
 end

@@ -24,6 +24,11 @@
   <div>
     <%= form.fields_for :questions do |f| %>
 
+      <div class="image">
+        <%= f.label :image %>
+        <%= f.file_field :image %>
+      </div>
+
       <div class="content">
         <%= f.label :content %>
         <%= f.text_area :content %>

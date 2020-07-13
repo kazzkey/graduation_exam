@@ -21,6 +21,9 @@
 require 'rails_helper'
 
 RSpec.describe Exam, type: :model do
+  let(:image_path) { File.join(Rails.root, 'spec/factories/test.jpg') }
+  let(:image) { Rack::Test::UploadedFile.new(image_path) }
+
   before do
     Subject.create(id: 1, name: 'Japanese')
   end
@@ -83,6 +86,7 @@ RSpec.describe Exam, type: :model do
       subject_id: 1,
     )
     question = exam.questions.build(
+      image: image,
       content: 'TestContent',
       correct_answer: 1,
     )
@@ -97,6 +101,7 @@ RSpec.describe Exam, type: :model do
       subject_id: 1,
     )
     question = exam.questions.build(
+      image: image,
       content: 'TestContent',
       correct_answer: nil,
     )
@@ -111,6 +116,7 @@ RSpec.describe Exam, type: :model do
       subject_id: 1,
     )
     question = exam.questions.build(
+      image: image,
       content: nil,
       correct_answer: 1,
     )
