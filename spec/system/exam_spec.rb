@@ -4,12 +4,18 @@ RSpec.describe '試験作成機能', type: :system do
 
   before do
     FactoryBot.create(:subject)
+    FactoryBot.create(:admin)
   end
 
   describe '試験一覧画面' do
     before do
+      visit new_user_session_path
+      fill_in '学籍番号', with: 1
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログイン'
       exam = FactoryBot.create(:exam_with_question)
     end
+
     context '試験(問題は1問)を作成した場合' do
       it '作成済みの試験が表示され、子となる問題が1つ存在する' do
         visit exams_path
@@ -33,6 +39,13 @@ RSpec.describe '試験作成機能', type: :system do
   end
 
   describe '試験作成画面' do
+    before do
+      visit new_user_session_path
+      fill_in '学籍番号', with: 1
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログイン'
+    end
+
     context '項目をすべて入力(問題は1問)してcreateを押した場合' do
       before do
         visit exams_path
@@ -66,6 +79,13 @@ RSpec.describe '試験作成機能', type: :system do
   end
 
   describe '試験詳細画面' do
+    before do
+      visit new_user_session_path
+      fill_in '学籍番号', with: 1
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログイン'
+    end
+
     context '任意の試験詳細画面にアクセスした場合' do
       it '該当の内容が表示されたページに遷移する' do
         exam = FactoryBot.create(:exam_with_question)
@@ -84,6 +104,13 @@ RSpec.describe '試験作成機能', type: :system do
   end
 
   describe '試験編集画面' do
+    before do
+      visit new_user_session_path
+      fill_in '学籍番号', with: 1
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログイン'
+    end
+
     context '試験の公開にチェックをした場合' do
       it '公開情報がtrueに変更される' do
         exam = FactoryBot.create(:exam_with_question)

@@ -31,5 +31,14 @@ FactoryBot.define do
     name { '山田花子' }
     email { 'yamada@example.com' }
     password { 'password' }
+    admin { false }
+  end
+
+  factory :admin, class: User do
+    student_id { 1 }
+    name { 'admin' }
+    email { 'admin@example.com' }
+    password { 'password' }
+    admin { true }
   end
 end
