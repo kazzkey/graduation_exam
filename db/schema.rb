@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_13_133800) do
+ActiveRecord::Schema.define(version: 2020_07_14_041616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answer_sheets", force: :cascade do |t|
+    t.integer "point", null: false
+    t.bigint "user_id"
+    t.bigint "exam_id"
+    t.bigint "subject_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_answer_sheets_on_exam_id"
+    t.index ["subject_id"], name: "index_answer_sheets_on_subject_id"
+    t.index ["user_id"], name: "index_answer_sheets_on_user_id"
+  end
 
   create_table "exams", force: :cascade do |t|
     t.string "title", null: false
@@ -64,6 +76,9 @@ ActiveRecord::Schema.define(version: 2020_07_13_133800) do
     t.index ["student_id"], name: "index_users_on_student_id", unique: true
   end
 
+  add_foreign_key "answer_sheets", "exams"
+  add_foreign_key "answer_sheets", "subjects"
+  add_foreign_key "answer_sheets", "users"
   add_foreign_key "exams", "subjects"
   add_foreign_key "questions", "exams"
 end

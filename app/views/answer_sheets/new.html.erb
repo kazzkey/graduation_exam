@@ -1,0 +1,42 @@
+<h1>AnswerSheets#new</h1>
+
+<%= form_with(model: [@exam, @answer_sheet], local: true) do |form| %>
+  <% if @answer_sheet.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% @answer_sheet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <!-- 問題文(questions) -->
+  <p>
+    <strong>Title:</strong>
+    <%= @exam.title %>
+  </p>
+
+  <p>
+    <strong>Deadline:</strong>
+    <%= @exam.deadline %>
+  </p>
+  <br>
+  <% n = 0 %>
+  <% @exam.questions.each do |question| %>
+
+    <strong><%= "問:#{n+=1}" %></strong>
+    <% if question.image.present? %>
+      <p>
+        <%= image_tag question.image.url %>
+      </p>
+    <% end %>
+    <%= simple_format question.content %>
+  <% end %>
+  <br>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
