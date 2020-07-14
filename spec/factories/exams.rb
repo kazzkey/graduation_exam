@@ -27,6 +27,7 @@ FactoryBot.define do
   end
 
   factory :exam_with_question, class: Exam do
+    id { 1 }
     title { 'ExamTitle' }
     subject_id { 1 }
     deadline { '2021-01-01' }

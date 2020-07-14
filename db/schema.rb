@@ -10,21 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_14_041616) do
+ActiveRecord::Schema.define(version: 2020_07_14_105707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "answer_sheets", force: :cascade do |t|
     t.integer "point", null: false
-    t.bigint "user_id"
     t.bigint "exam_id"
-    t.bigint "subject_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["exam_id"], name: "index_answer_sheets_on_exam_id"
-    t.index ["subject_id"], name: "index_answer_sheets_on_subject_id"
     t.index ["user_id"], name: "index_answer_sheets_on_user_id"
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.integer "choice", null: false
+    t.bigint "answer_sheet_id"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answer_sheet_id"], name: "index_answers_on_answer_sheet_id"
+    t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
   create_table "exams", force: :cascade do |t|
@@ -77,8 +85,9 @@ ActiveRecord::Schema.define(version: 2020_07_14_041616) do
   end
 
   add_foreign_key "answer_sheets", "exams"
-  add_foreign_key "answer_sheets", "subjects"
   add_foreign_key "answer_sheets", "users"
+  add_foreign_key "answers", "answer_sheets"
+  add_foreign_key "answers", "questions"
   add_foreign_key "exams", "subjects"
   add_foreign_key "questions", "exams"
 end

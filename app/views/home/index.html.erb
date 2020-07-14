@@ -17,7 +17,11 @@
       <tr>
         <td><%= exam.title %></td>
         <td><%= exam.deadline %></td>
-        <td><%= link_to '解答', new_exam_answer_sheet_path(exam) %></td>
+        <% unless answer_check(exam) %>
+          <td><%= link_to '解答', new_exam_answer_sheet_path(exam) %></td>
+        <% else %>
+          <td>解答済</td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

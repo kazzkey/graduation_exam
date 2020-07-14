@@ -9,7 +9,6 @@
 #
 class Subject < ApplicationRecord
   has_many :exams
-  has_many :answer_sheets
 
   validates :name, length: { maximum: 255 }
 end

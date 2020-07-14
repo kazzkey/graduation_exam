@@ -33,6 +33,19 @@
       </p>
     <% end %>
     <%= simple_format question.content %>
+
+
+    <!-- ネストフォーム(answers) -->
+    <div class="">
+      <%= form.fields_for :answers do |f| %>
+
+        <div class="field">
+          <%= f.label :choice %>
+          <%= f.select :choice, {"①":1, "②":2, "③":3, "④":4}, { include_blank: "選択してください" } %>
+        </div>
+        <%= f.hidden_field :question_id, value: question.id %>
+      <% end %>
+    </div>
   <% end %>
   <br>
 
