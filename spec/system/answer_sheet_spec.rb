@@ -34,6 +34,16 @@ RSpec.describe '試験解答機能', type: :system do
         expect(page).not_to have_content '2021-01-01'
         expect(page).to have_content '現在0件のテストがあります'
       end
+
+      it '公開されていても締切が過ぎた試験は表示されない' do
+        FactoryBot.create(:exam_with_question, release: true)
+        travel_to Date.new(2021, 1, 2)
+        visit root_path
+        sleep 0.5
+        expect(page).not_to have_content 'ExamTitle'
+        expect(page).not_to have_content '2021-01-01'
+        expect(page).to have_content '現在0件のテストがあります'
+      end
     end
   end
 
