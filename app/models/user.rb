@@ -31,9 +31,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
 
+  has_many :answer_sheets, dependent: :destroy
+
   validates :student_id, presence: true, uniqueness: true
   validates :name, presence: true, length: { maximum: 255 }
   validates :email, uniqueness: true, length: { maximum: 255 }
-
-  self.primary_key = "student_id"
 end

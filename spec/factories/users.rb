@@ -27,6 +27,7 @@
 #
 FactoryBot.define do
   factory :user do
+    id { 1 }
     student_id { 202020 }
     name { '山田花子' }
     email { 'yamada@example.com' }
@@ -35,6 +36,7 @@ FactoryBot.define do
   end
 
   factory :admin, class: User do
+    id { 2 }
     student_id { 1 }
     name { 'admin' }
     email { 'admin@example.com' }

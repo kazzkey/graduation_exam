@@ -1,0 +1,19 @@
+<h1>採点結果</h1>
+<h2><%= @answer_sheet.user.name %>さん</h2>
+
+<h1><%= @answer_sheet.point %>点</h1>
+
+<% n = 0 %>
+<% @answer_sheet.answers.each do |answer| %>
+  <strong><%= "問:#{n+=1}" %></strong>
+  <%= answer.question.description %>
+  <%= simple_format answer.question.content %>
+
+  <% if answer.choice == answer.question.correct_answer %>
+    <h2>正解！！</h2>
+  <% else %>
+    <h2>残念！！</h2>
+  <% end %>
+  <p>あなたの選んだ答え：<%= answer.choice %></p>
+  <p>正解：<%= answer.question.correct_answer %></p>
+<% end %>

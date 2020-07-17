@@ -22,6 +22,7 @@
 #
 class Question < ApplicationRecord
   belongs_to :exam
+  has_many :answers
   mount_uploader :image, ImageUploader
 
   validates :content, presence: true, length: { maximum: 65535 }
