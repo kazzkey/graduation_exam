@@ -14,3 +14,5 @@
   <%= as.exam.title %>：
   <%= as.point %>点(全<%= as.exam.questions.length %>問)
 <% end %>
+
+<%= column_chart @point_charts, xtitle: "テスト", ytitle: "得点(点)" %>
