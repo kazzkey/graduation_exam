@@ -1,0 +1,11 @@
+<%= form_with(model: @user, local: true) do |form| %>
+
+  <div>
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
