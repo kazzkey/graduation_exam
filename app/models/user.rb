@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                     :bigint           not null
+#  id                     :bigint           not null, primary key
 #  admin                  :boolean          default(FALSE)
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
@@ -17,7 +17,7 @@
 #  sign_in_count          :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  student_id             :integer          not null, primary key
+#  student_id             :integer          not null
 #
 # Indexes
 #

@@ -34,13 +34,13 @@ class AnswerSheetsController < ApplicationController
   end
 
   def point_check
-    @answer_sheet.point = 0
+    @answer_sheet.score = 0
 
     i = 0
     while i < @exam.questions.length do
       question = Question.find(params[:answer_sheet][:answers_attributes][i.to_s][:question_id])
       if question.correct_answer == params[:answer_sheet][:answers_attributes][i.to_s][:choice].to_i
-        @answer_sheet.point += 1
+        @answer_sheet.score += 1
       end
       i += 1
     end

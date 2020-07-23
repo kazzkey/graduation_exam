@@ -6,12 +6,12 @@ class UsersController < ApplicationController
     @answer_sheets = AnswerSheet.where(user_id: current_user.id).order(:id)
     @point_charts = []
     @answer_sheets.each do |as|
-      point_chart = [as.exam.title, as.point]
+      point_chart = [as.exam.title, as.score]
       @point_charts << point_chart
     end
 
     # 平均点のグラフ表示
-    @average = AnswerSheet.group(:exam_id).average(:point).sort.to_h
+    @average = AnswerSheet.group(:exam_id).average(:score).sort.to_h
     @average_charts = []
     @average.values.each_with_index do |value, i|
       exam = Exam.find(i + 1)

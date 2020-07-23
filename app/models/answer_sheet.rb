@@ -3,7 +3,7 @@
 # Table name: answer_sheets
 #
 #  id         :bigint           not null, primary key
-#  point      :integer          not null
+#  score      :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  exam_id    :bigint
