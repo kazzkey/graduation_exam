@@ -16,4 +16,4 @@
   <%= link_to "詳細", result_user_answer_sheet_path(as) %>
 <% end %>
 
-<%= column_chart @point_charts, xtitle: "テスト", ytitle: "得点(点)" %>
+<%= area_chart [{ name: "得点", data: @point_charts }, { name: "平均点", data: @average_charts }] %>
