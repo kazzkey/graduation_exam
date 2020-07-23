@@ -13,6 +13,7 @@
 <% @user.answer_sheets.each do |as| %>
   <%= as.exam.title %>：
   <%= as.point %>点(全<%= as.exam.questions.length %>問)
+  <%= link_to "詳細", result_user_answer_sheet_path(as) %>
 <% end %>
 
 <%= column_chart @point_charts, xtitle: "テスト", ytitle: "得点(点)" %>
