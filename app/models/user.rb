@@ -32,6 +32,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable
 
   has_many :answer_sheets, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :student_id, presence: true, uniqueness: true
   validates :name, presence: true, length: { maximum: 255 }
