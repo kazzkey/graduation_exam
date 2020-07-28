@@ -4,10 +4,10 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { sessions: 'users/sessions' }
 
-  resource :user, only: %i(show edit update) do
-    resources :answer_sheets, only: %i(result) do
-      get :result, on: :member
-    end
+  resource :user, only: %i(show edit update)
+
+  resources :answer_sheets, only: %i(result) do
+    get :result, on: :member
   end
 
   resources :exams do

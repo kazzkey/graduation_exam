@@ -4,6 +4,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
 
   before do
     FactoryBot.create(:subject)
+    FactoryBot.create(:exam_with_question, release: true)
     FactoryBot.create(:user)
   end
 
@@ -16,13 +17,27 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     end
 
     context 'マイページにアクセスした場合' do
+      before do
+        FactoryBot.create(:answer_sheet_with_answer)
+      end
+
       it 'ユーザ情報が表示される' do
         visit root_path
         click_link 'マイページ'
-        sleep 0.5
         expect(page).to have_content '学籍番号：202020'
         expect(page).to have_content '山田花子'
         expect(page).to have_content 'yamada@example.com'
+      end
+
+      it '試験結果ページに飛ぶことができる' do
+        visit root_path
+        click_link 'マイページ'
+        sleep 0.5
+        click_link '詳細'
+        sleep 0.5
+        expect(page).to have_content '1点'
+        expect(page).to have_content '正解！！'
+        expect(page).to have_content 'あなたの選んだ答え：1'
       end
     end
 

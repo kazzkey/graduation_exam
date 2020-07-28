@@ -23,6 +23,6 @@ FactoryBot.define do
   factory :answer do
     choice { 1 }
     answer_sheet { nil }
-    question { nil }
+    question_id { 1 }
   end
 end
