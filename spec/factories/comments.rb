@@ -21,8 +21,8 @@
 #
 FactoryBot.define do
   factory :comment do
-    content { "MyString" }
-    user { nil }
-    asnwer_sheet { nil }
+    content { 'TestComment' }
+    user_id { 1 }
+    answer_sheet_id { 1 }
   end
 end

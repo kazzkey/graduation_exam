@@ -22,6 +22,7 @@
 FactoryBot.define do
 
   factory :answer_sheet_with_answer, class: AnswerSheet do
+    id { 1 }
     score { 1 }
     user_id { 1 }
     exam_id { 1 }

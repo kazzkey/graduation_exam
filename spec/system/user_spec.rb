@@ -29,11 +29,23 @@ RSpec.describe 'ユーザ管理機能', type: :system do
         expect(page).to have_content 'yamada@example.com'
       end
 
-      it '試験結果ページに飛ぶことができる' do
+      it '試験ページに飛ぶことができる' do
         visit root_path
         click_link 'マイページ'
         sleep 0.5
         click_link '詳細'
+        sleep 0.5
+        expect(page).to have_content 'ExamTitle'
+        expect(page).to have_content '1点'
+      end
+
+      it '試験ページ詳細に飛ぶことができる' do
+        visit root_path
+        click_link 'マイページ'
+        sleep 0.5
+        click_link '詳細'
+        sleep 0.5
+        click_link '詳細をみる'
         sleep 0.5
         expect(page).to have_content '1点'
         expect(page).to have_content '正解！！'
