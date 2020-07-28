@@ -20,16 +20,12 @@
 #  fk_rails_...  (user_id => users.id)
 #
 FactoryBot.define do
-  factory :answer_sheet do
-    point { 1 }
-    user { nil }
-    exam { nil }
-  end
 
   factory :answer_sheet_with_answer, class: AnswerSheet do
-    point { 1 }
-    user { nil }
-    exam { nil }
+    id { 1 }
+    score { 1 }
+    user_id { 1 }
+    exam_id { 1 }
 
     after( :create ) do |answer_sheet|
       create :answer, answer_sheet: answer_sheet

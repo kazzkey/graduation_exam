@@ -1,0 +1,22 @@
+<div>
+  <% comments.each do |comment| %>
+    <% if comment.id.present? %>
+      <div style="border:solid 1px #000;">
+        <p><%= comment.user.name %>
+          <span><%= time_ago_in_words(comment.created_at) %>前</span>
+        </p>
+        <div class="comment-content" id="this_comment_<%= comment.id %>">
+          <p><%= simple_format comment.content %></p>
+          <p>
+            <% if current_user.id == comment.user_id || current_user.admin %>
+              <%= link_to "編集", edit_answer_sheet_comment_path(answer_sheet, comment), remote: true %>
+              <%= link_to "削除", answer_sheet_comment_path(comment.answer_sheet_id, comment.id), method: :delete, remote: true,
+                                          data: { confirm: "本当に削除しますか?"} %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+      <br>
+    <% end %>
+  <% end %>
+</div>

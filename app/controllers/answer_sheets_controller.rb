@@ -21,6 +21,12 @@ class AnswerSheetsController < ApplicationController
     @answer_sheet = AnswerSheet.find(params[:id])
   end
 
+  def show
+    @answer_sheet = AnswerSheet.find(params[:id])
+    @comments = @answer_sheet.comments.order(:id)
+    @comment = current_user.comments.build
+  end
+
 
   private
   def set_answer_sheet

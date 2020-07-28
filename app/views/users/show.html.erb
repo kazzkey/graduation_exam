@@ -12,8 +12,7 @@
 <p>テスト成績</p>
 <% @user.answer_sheets.each do |as| %>
   <%= as.exam.title %>：
-  <%= as.score %>点(全<%= as.exam.questions.length %>問)
-  <%= link_to "詳細", result_user_answer_sheet_path(as) %>
+  <%= link_to "詳細", answer_sheet_path(as) %>
 <% end %>
 
 <%= area_chart [{ name: "得点", data: @point_charts }, { name: "平均点", data: @average_charts }] %>

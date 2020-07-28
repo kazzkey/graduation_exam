@@ -1,0 +1,21 @@
+<h1>テスト</h1>
+
+<div style="border:solid 1px #000;">
+  試験名：<%= @answer_sheet.exam.title %><br>
+  解答日：<%= @answer_sheet.created_at %><br>
+  得点：<%= @answer_sheet.score %>点(全<%= @answer_sheet.exam.questions.length %>問)
+  <%= link_to "詳細をみる", result_answer_sheet_path(@answer_sheet) %>
+</div>
+
+
+
+<hr>
+<div id="comments_area">
+  <%= render partial: 'comments/index', locals: { comments: @comments, answer_sheet: @answer_sheet } %>
+</div>
+<hr>
+<div id="comment_form">
+  <%= render partial: 'comments/form', locals: { comment: @comment, answer_sheet: @answer_sheet } %>
+</div>
+
+<%= link_to '戻る', user_path %>
