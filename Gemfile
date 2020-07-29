@@ -18,6 +18,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'chartkick'
 gem 'jquery-rails'
+gem 'bootstrap', '~> 4.5.0'
 
 # Backend
 gem 'jbuilder', '~> 2.5'
