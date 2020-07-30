@@ -1,15 +1,24 @@
-<h1>テスト</h1>
+<div class="float-right">
+  <%= link_to "Back", user_path %>
+</div>
+<br>
 
-<div style="border:solid 1px #000;">
-  試験名：<%= @answer_sheet.exam.title %><br>
-  解答日：<%= @answer_sheet.created_at %><br>
-  得点：<%= @answer_sheet.score %>点(全<%= @answer_sheet.exam.questions.length %>問)
-  <%= link_to "詳細をみる", result_answer_sheet_path(@answer_sheet) %>
+<div class="card border-primary mx-auto">
+  <div class="m-4">
+    <h2><%= @answer_sheet.exam.title %></h2>
+    <div class="text-right">
+      学籍番号[ <strong><%= @answer_sheet.user.student_id %></strong> ]
+      氏名[ <strong><%= @answer_sheet.user.name %></strong> ]
+
+      <h1 class="mt-3 text-danger" style="font-family:'Charm',cursive;"><%= @answer_sheet.score %>／<%= @answer_sheet.exam.questions.length %>点</h1>
+      <%= link_to result_answer_sheet_path(@answer_sheet), class: "btn btn-sm btn-outline-primary" do %>
+        <i class="fas fa-chart-area"> 詳細を見る</i>
+      <% end %>
+    </div>
+    解答日：<%= @answer_sheet.created_at %>
+  </div>
 </div>
 
-
-
-<hr>
 <div id="comments_area">
   <%= render partial: 'comments/index', locals: { comments: @comments, answer_sheet: @answer_sheet } %>
 </div>
@@ -17,5 +26,3 @@
 <div id="comment_form">
   <%= render partial: 'comments/form', locals: { comment: @comment, answer_sheet: @answer_sheet } %>
 </div>
-
-<%= link_to '戻る', user_path %>

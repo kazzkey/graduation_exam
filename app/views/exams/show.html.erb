@@ -5,13 +5,12 @@
 <br>
 
 <div class="card border-primary shadow-lg mx-auto">
+
   <div class="card-header">
     <div class="float-right">
       作成日：<%= @exam.created_at.strftime("%Y/%m/%d") %>
     </div>
-    <div class="text-center">
-      <%= @exam.title %>
-    </div>
+    <h3><%= @exam.title %></h3>
   </div>
 
   <div class="card-body">
@@ -32,30 +31,27 @@
         <%= @exam.release ? "○" : "×" %>
       </p>
     </div>
-  </div>
+    <br>
 
-
-
-  <!-- Nested Form (Questions info.) -->
-  <% n = 0 %>
-  <div class="list-group list-group-flush">
+    <!-- Nested Form (Questions info.) -->
+    <% n = 0 %>
     <% @exam.questions.order(:id).each do |question| %>
 
-      <div class="list-group-item">
-
+      <div class="position-absolute badge badge-pill badge-primary" style="z-index:1; font-size:1.1rem;">
         <strong><%= "Q.#{n+=1}" %></strong>
+      </div>
 
-        <div class="card my-2 p-3">
-          <% if question.image.present? %>
-            <p>
-              <%= image_tag question.image.url, style: "width:100%;" %>
-            </p>
-          <% end %>
-          <%= simple_format question.content %>
-        </div>
+      <div class="card mt-2 p-4 border-primary">
+        <% if question.image.present? %>
+          <p>
+            <%= image_tag question.image.url, style: "width:100%;" %>
+          </p>
+        <% end %>
+        <%= simple_format question.content %>
         <p><strong>正解:</strong><%= question.correct_answer %></p>
         <p><strong>解説:</strong><%= question.description %></p>
       </div>
+      <br>
     <% end %>
   </div>
 </div>
