@@ -9,11 +9,15 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
-    <%= form.text_area :content, id: "comment_content_#{answer_sheet.id}" %>
+  <div class="form-group">
+    <%= form.text_area :content, id: "comment_content_#{answer_sheet.id}", class: "form-control" %>
   </div>
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-row">
+    <div class="col">
+      <%= form.submit class: "form-control btn btn-primary" %>
+    </div>
+    <div class="col">
+      <%= link_to "キャンセル", :back, class: "form-control btn btn-outline-primary" %>
+    </div>
   </div>
-  <%= link_to "キャンセル", :back %>
 <% end %>

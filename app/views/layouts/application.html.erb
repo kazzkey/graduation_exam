@@ -65,13 +65,22 @@
         <div class="row">
           <% if user_signed_in? %>
             <div class="col">
-              <%= link_to "ホーム", root_path, class: "btn btn-outline-light", style: "width:100%;" %>
+              <%= link_to root_path, class: "btn btn-outline-light", style: "width:100%;", title: "Home" do %>
+                <i class="fas fa-home"></i>
+              <% end %>
             </div>
             <div class="col">
-              <%= link_to "マイページ", user_path, class: "btn btn-outline-light", style: "width:100%;" %>
+              <%= link_to user_path, class: "btn btn-outline-light", style: "width:100%;", title: "My Page" do %>
+                <i class="fas fa-user"></i>
+              <% end %>
             </div>
             <div class="col">
-              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-light", style: "width:100%;" %>
+              <%= link_to user_path, class: "btn btn-outline-light", style: "width:100%;", title: "Answer Sheets" do %>
+                <i class="far fa-copy"></i>
+              <% end %>
+            </div>
+            <div class="col">
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-light", style: "width:100%;" %>
             </div>
           <% else %>
             <div class="col">

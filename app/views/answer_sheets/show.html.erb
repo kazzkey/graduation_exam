@@ -1,9 +1,4 @@
-<div class="float-right">
-  <%= link_to "Back", user_path %>
-</div>
-<br>
-
-<div class="card border-primary mx-auto">
+<div class="card border-primary shadow-lg mx-auto">
   <div class="m-4">
     <h2><%= @answer_sheet.exam.title %></h2>
     <div class="text-right">
@@ -19,6 +14,7 @@
   </div>
 </div>
 
+<h4 class="mt-5 text-primary">コメント</h4>
 <div id="comments_area">
   <%= render partial: 'comments/index', locals: { comments: @comments, answer_sheet: @answer_sheet } %>
 </div>

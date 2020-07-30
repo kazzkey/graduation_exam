@@ -1,11 +1,21 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="card p-4">
+  <p>学籍番号：<%= @user.student_id %></p>
 
-<p>学籍番号：<%= @user.student_id %></p>
+  <p>氏名：<%= @user.name %></p>
 
-<p>氏名：<%= @user.name %></p>
+  <p>メールアドレス：<%= @user.email %></p>
+</div>
 
-<p>メールアドレス：<%= @user.email %> <%= link_to "編集", edit_user_path %></p>
+<div>
+  <%= link_to edit_user_registration_path, class: "btn btn-sm btn-outline-primary" do %>
+   <i class="fas fa-cog"> プロフィールを編集</i>
+  <% end %>
+
+  <%= link_to destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline-primary" do %>
+   <i class="fas fa-sign-out-alt"> ログアウト</i>
+  <% end %>
+</div>
+
 
 <hr>
 
