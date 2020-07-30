@@ -1,45 +1,61 @@
-<h1>Exams#show</h1>
-
-<div>
-  <p>試験名：
-    <%= @exam.title %>
-  </p>
+<div class="float-right">
+  <%= link_to "Edit", edit_exam_path(@exam) %>
+  <%= link_to "Back", exams_path %>
 </div>
+<br>
 
-<div>
-  <p>科目：
-    <%= @exam.subject.name %>
-  </p>
-</div>
-
-<div>
-  <p>締切：
-    <%= @exam.deadline %>
-  </p>
-</div>
-
-<div>
-  <p>公開：
-    <%= @exam.release ? "○" : "×" %>
-  </p>
-</div>
-
-
-<!-- ネスト(questions) -->
-<% n = 0 %>
-<% @exam.questions.each do |question| %>
-
-  <div>
-    <strong><%= "問:#{n+=1}" %></strong>
-    <%= simple_format question.content %>
-    <% if question.image.present? %>
-      <p>
-        <%= image_tag question.image.url %>
-      </p>
-    <% end %>
-    <strong>正解:</strong>
-    <%= question.correct_answer %>
-      <strong>解説:</strong>
-    <%= question.description %>
+<div class="card border-primary shadow-lg mx-auto">
+  <div class="card-header">
+    <div class="float-right">
+      作成日：<%= @exam.created_at.strftime("%Y/%m/%d") %>
+    </div>
+    <div class="text-center">
+      <%= @exam.title %>
+    </div>
   </div>
-<% end %>
+
+  <div class="card-body">
+    <div>
+      <p>科目：
+        <%= @exam.subject.name %>
+      </p>
+    </div>
+
+    <div>
+      <p>締切：
+        <%= @exam.deadline %>
+      </p>
+    </div>
+
+    <div>
+      <p>公開：
+        <%= @exam.release ? "○" : "×" %>
+      </p>
+    </div>
+  </div>
+
+
+
+  <!-- Nested Form (Questions info.) -->
+  <% n = 0 %>
+  <div class="list-group list-group-flush">
+    <% @exam.questions.order(:id).each do |question| %>
+
+      <div class="list-group-item">
+
+        <strong><%= "Q.#{n+=1}" %></strong>
+
+        <div class="card my-2 p-3">
+          <% if question.image.present? %>
+            <p>
+              <%= image_tag question.image.url, style: "width:100%;" %>
+            </p>
+          <% end %>
+          <%= simple_format question.content %>
+        </div>
+        <p><strong>正解:</strong><%= question.correct_answer %></p>
+        <p><strong>解説:</strong><%= question.description %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
