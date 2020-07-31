@@ -1,0 +1,35 @@
+<div class="jumbotron">
+  <h2>解答用紙一覧</h2>
+  <i class="far fa-copy fa-3x text-primary float-right"></i>
+  <br>
+</div>
+
+<% @answer_sheets.each do |as| %>
+  <div class="card my-4">
+    <div class="card-body">
+      <div class="small mb-3">
+        <div class="badge badge-primary px-2">
+          <%= as.exam.subject.name %>
+        </div>
+        <%= as.created_at %>
+      </div>
+
+      <p class="card-title"><strong><%= as.exam.title %></strong></p>
+
+      <div class="float-right">
+        <%= link_to as, class: "stretched-link" do %>
+          <i class="far fa-file-alt fa-lg fa-fw" title="Show"></i>
+        <% end %>
+
+        <span class="fa-stack">
+          <% if as.comments.present? %>
+            <i class="fas fa-comment-alt fa-lg text-primary" title="Comment"></i>
+          <% else %>
+            <i class="far fa-comment-alt fa-lg text-primary" title="Comment"></i>
+          <% end %>
+          <i class="fa text-primary"><%= as.comments.length %></i>
+        </span>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -2,6 +2,10 @@ class AnswerSheetsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_answer_sheet, only: %i(new create)
 
+  def index
+    @answer_sheets = current_user.answer_sheets.order(id: :desc)
+  end
+
   def new
     @answer_sheet = current_user.answer_sheets.build
     @answer = @answer_sheet.answers.build

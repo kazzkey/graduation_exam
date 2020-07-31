@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resource :user, only: %i(show edit update)
 
-  resources :answer_sheets, only: %i(show result) do
+  resources :answer_sheets, only: %i(index show result) do
     get :result, on: :member
     resources :comments, only: %i(create edit update destroy)
   end
