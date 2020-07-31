@@ -11,7 +11,7 @@
         <div class="badge badge-primary px-2">
           <%= as.exam.subject.name %>
         </div>
-        <%= as.created_at %>
+        <%= l as.created_at, format: :long %>
       </div>
 
       <p class="card-title"><strong><%= as.exam.title %></strong></p>

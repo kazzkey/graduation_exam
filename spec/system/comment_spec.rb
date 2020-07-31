@@ -25,7 +25,7 @@ RSpec.describe 'コメント機能', type: :system do
         visit answer_sheet_path(id: 1)
         sleep 0.5
         fill_in 'コメントを入力', with: 'TestComment'
-        click_on '登録する'
+        click_on '送信'
       end
 
       it '自分のコメントがページに反映される' do
@@ -40,7 +40,7 @@ RSpec.describe 'コメント機能', type: :system do
         click_link '編集'
         sleep 0.5
         first('textarea').set('ExampleComment')
-        click_on '更新する'
+        click_on '更新'
         expect(page).to have_content 'ExampleComment'
       end
 
@@ -63,6 +63,5 @@ RSpec.describe 'コメント機能', type: :system do
         expect(page).not_to have_content '削除'
       end
     end
-
   end
 end

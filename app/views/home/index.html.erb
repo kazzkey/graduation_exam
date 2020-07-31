@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-4"><%= exam.title %></div>
       <div class="col-3"><%= exam.subject.name %></div>
-      <div class="col-3"><%= exam.deadline %></div>
+      <div class="col-3"><%= l exam.deadline, format: :short %></div>
       <% unless answer_check(exam) %>
         <div class="badge">
           <%= link_to new_exam_answer_sheet_path(exam) do %>

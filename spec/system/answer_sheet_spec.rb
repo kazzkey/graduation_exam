@@ -23,7 +23,7 @@ RSpec.describe '試験解答機能', type: :system do
         visit root_path
         sleep 0.5
         expect(page).to have_content 'ExamTitle'
-        expect(page).to have_content '2021-01-01'
+        expect(page).to have_content '01/01'
       end
 
       it '公開された試験情報なければ何も表示されない' do
@@ -31,7 +31,7 @@ RSpec.describe '試験解答機能', type: :system do
         visit root_path
         sleep 0.5
         expect(page).not_to have_content 'ExamTitle'
-        expect(page).not_to have_content '2021-01-01'
+        expect(page).not_to have_content '01/01'
         expect(page).to have_content '現在0件のテストがあります'
       end
 
@@ -41,7 +41,7 @@ RSpec.describe '試験解答機能', type: :system do
         visit root_path
         sleep 0.5
         expect(page).not_to have_content 'ExamTitle'
-        expect(page).not_to have_content '2021-01-01'
+        expect(page).not_to have_content '01/01'
         expect(page).to have_content '現在0件のテストがあります'
       end
     end
@@ -65,7 +65,6 @@ RSpec.describe '試験解答機能', type: :system do
         click_on '解答'
         sleep 0.5
         expect(page).to have_content 'ExamTitle'
-        expect(page).to have_content '2021-01-01'
         expect(page).to have_content 'QuestionText'
         expect(page).to have_selector('img[src$="test.jpg"]')
       end
@@ -75,7 +74,7 @@ RSpec.describe '試験解答機能', type: :system do
         sleep 0.5
         click_on '解答'
         sleep 0.5
-        expect(page).not_to have_content '解答：1'
+        expect(page).not_to have_content '解答:1'
       end
     end
 
@@ -83,32 +82,36 @@ RSpec.describe '試験解答機能', type: :system do
 
       it '結果ページに遷移する' do
         click_on '解答'
-        select '③', from: 'Choice'
-        click_on '登録する'
+        find('#c2').click
+        click_on '送信'
+        page.driver.browser.switch_to.alert.accept
         sleep 0.5
-        expect(page).to have_content '採点結果'
+        expect(page).to have_content '0／1点'
       end
 
       it '解答が正しければ1点と表示される' do
         click_on '解答'
-        select '①', from: 'Choice'
-        click_on '登録する'
+        find('#c1').click
+        click_on '送信'
+        page.driver.browser.switch_to.alert.accept
         sleep 0.5
-        expect(page).to have_content '1点'
+        expect(page).to have_content '1／1点'
       end
 
       it '解答が誤っていれば0点と表示される' do
         click_on '解答'
-        select '②', from: 'Choice'
-        click_on '登録する'
+        find('#c3').click
+        click_on '送信'
+        page.driver.browser.switch_to.alert.accept
         sleep 0.5
-        expect(page).to have_content '0点'
+        expect(page).to have_content '0／1点'
       end
 
       it '同じ問題を二度は解答できない' do
         click_on '解答'
-        select '②', from: 'Choice'
-        click_on '登録する'
+        find('#c4').click
+        click_on '送信'
+        page.driver.browser.switch_to.alert.accept
         sleep 0.5
         visit root_path
         expect(page).to have_content '解答済'

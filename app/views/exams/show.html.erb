@@ -1,6 +1,5 @@
 <div class="float-right">
-  <%= link_to "Edit", edit_exam_path(@exam) %>
-  <%= link_to "Back", exams_path %>
+  <%= link_to t("views.link.edit"), edit_exam_path(@exam) %>
 </div>
 <br>
 
@@ -8,7 +7,7 @@
 
   <div class="card-header">
     <div class="float-right">
-      作成日：<%= @exam.created_at.strftime("%Y/%m/%d") %>
+      作成日：<%= l @exam.created_at, format: :long %>
     </div>
     <h3><%= @exam.title %></h3>
   </div>
@@ -22,7 +21,7 @@
 
     <div>
       <p>締切：
-        <%= @exam.deadline %>
+        <%= l @exam.deadline %>
       </p>
     </div>
 

@@ -48,16 +48,16 @@
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <%= form.fields_for :answers do |f| %>
 
-              <label class="btn btn-sm btn-outline-primary">
+              <label id="c1" class="btn btn-sm btn-outline-primary">
                 <%= f.radio_button :choice, 1, style: "display:none;", autocomplete: "off" %>1
               </label>
-              <label class="btn btn-sm btn-outline-primary">
+              <label id="c2" class="btn btn-sm btn-outline-primary">
                 <%= f.radio_button :choice, 2, style: "display:none;", autocomplete: "off" %>2
               </label>
-              <label class="btn btn-sm btn-outline-primary">
+              <label id="c3" class="btn btn-sm btn-outline-primary">
                 <%= f.radio_button :choice, 3, style: "display:none;", autocomplete: "off" %>3
               </label>
-              <label class="btn btn-sm btn-outline-primary rounded-right">
+              <label id="c4" class="btn btn-sm btn-outline-primary rounded-right">
                 <%= f.radio_button :choice, 4, style: "display:none;", autocomplete: "off" %>4
               </label>
               <%= f.hidden_field :question_id, value: question.id %>
@@ -69,7 +69,7 @@
       <br>
 
       <div class="actions">
-        <%= form.submit class: "form-control btn btn-primary" %>
+        <%= form.submit class: "form-control btn btn-primary", data: { confirm: t("views.messages.are_you_sure") } %>
       </div>
     </div>
   </div>
