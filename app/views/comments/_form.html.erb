@@ -9,10 +9,15 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
-    <%= form.text_area :content, placeholder:"コメントを入力" %>
+  <div class="form-group">
+    <%= form.text_area :content, placeholder: "コメントを入力", class: "form-control" %>
   </div>
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-row">
+    <div class="col">
+      <%= form.submit class: "form-control btn btn-primary" %>
+    </div>
+    <div class="col">
+      <%= link_to "Back", :back, class: "form-control btn btn-outline-primary" %>
+    </div>
   </div>
 <% end %>

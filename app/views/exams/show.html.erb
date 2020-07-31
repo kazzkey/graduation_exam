@@ -1,45 +1,57 @@
-<h1>Exams#show</h1>
-
-<div>
-  <p>試験名：
-    <%= @exam.title %>
-  </p>
+<div class="float-right">
+  <%= link_to "Edit", edit_exam_path(@exam) %>
+  <%= link_to "Back", exams_path %>
 </div>
+<br>
 
-<div>
-  <p>科目：
-    <%= @exam.subject.name %>
-  </p>
-</div>
+<div class="card border-primary shadow-lg mx-auto">
 
-<div>
-  <p>締切：
-    <%= @exam.deadline %>
-  </p>
-</div>
-
-<div>
-  <p>公開：
-    <%= @exam.release ? "○" : "×" %>
-  </p>
-</div>
-
-
-<!-- ネスト(questions) -->
-<% n = 0 %>
-<% @exam.questions.each do |question| %>
-
-  <div>
-    <strong><%= "問:#{n+=1}" %></strong>
-    <%= simple_format question.content %>
-    <% if question.image.present? %>
-      <p>
-        <%= image_tag question.image.url %>
-      </p>
-    <% end %>
-    <strong>正解:</strong>
-    <%= question.correct_answer %>
-      <strong>解説:</strong>
-    <%= question.description %>
+  <div class="card-header">
+    <div class="float-right">
+      作成日：<%= @exam.created_at.strftime("%Y/%m/%d") %>
+    </div>
+    <h3><%= @exam.title %></h3>
   </div>
-<% end %>
+
+  <div class="card-body">
+    <div>
+      <p>科目：
+        <%= @exam.subject.name %>
+      </p>
+    </div>
+
+    <div>
+      <p>締切：
+        <%= @exam.deadline %>
+      </p>
+    </div>
+
+    <div>
+      <p>公開：
+        <%= @exam.release ? "○" : "×" %>
+      </p>
+    </div>
+    <br>
+
+    <!-- Nested Form (Questions info.) -->
+    <% n = 0 %>
+    <% @exam.questions.order(:id).each do |question| %>
+
+      <div class="position-absolute badge badge-pill badge-primary" style="z-index:1; font-size:1.1rem;">
+        <strong><%= "Q.#{n+=1}" %></strong>
+      </div>
+
+      <div class="card mt-2 p-4 border-primary">
+        <% if question.image.present? %>
+          <p>
+            <%= image_tag question.image.url, style: "width:100%;" %>
+          </p>
+        <% end %>
+        <%= simple_format question.content %>
+        <p><strong>正解:</strong><%= question.correct_answer %></p>
+        <p><strong>解説:</strong><%= question.description %></p>
+      </div>
+      <br>
+    <% end %>
+  </div>
+</div>

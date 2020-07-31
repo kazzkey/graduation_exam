@@ -4,28 +4,89 @@
     <title>GraduationExam</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <!-- Header -->
   <body>
-    <% if user_signed_in? %>
-      <%= link_to "ホーム", root_path %>
-      <%= link_to "マイページ", user_path %>
-      <%= link_to "新規作成", exams_path %>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "新規登録", new_user_registration_path %>
-      <%= link_to "ログイン", new_user_session_path %>
-    <% end %>
+    <header style="height:100px;">
+      <nav class="navbar navbar-expand-sm fixed-top navbar-dark bg-primary">
+        <a class="navbar-brand" href="/" style="font-family:'Fredoka One',cursive; font-size:2.5rem;">Exam</a>
 
-    <% if notice %>
-      <p class="alert alert-notice"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-error"><%= alert %></p>
-    <% end %>
-    <%= yield %>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to "マイページ", user_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "新規作成", exams_path, class: "nav-link" %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to "新規登録", new_user_registration_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログイン", new_user_session_path, class: "nav-link" %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Notice or Alert -->
+    <div class="container" style="height:70px;">
+      <% if notice %>
+        <p class="alert alert-primary mx-auto" style="max-width:600px;">
+          <%= notice %>
+        </p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-primary mx-auto" style="max-width:600px;">
+          <%= alert %>
+        </p>
+      <% end %>
+    </div>
+
+    <!-- Main -->
+    <div class="container" style="margin-bottom:100px;">
+      <%= yield %>
+    </div>
+
+    <!-- Footer(for Smartphone) -->
+    <footer class="fixed-bottom bg-primary d-block d-sm-none">
+      <div class="container my-3">
+        <div class="row">
+          <% if user_signed_in? %>
+            <div class="col">
+              <%= link_to root_path, class: "btn btn-outline-light", style: "width:100%;", title: "Home" do %>
+                <i class="fas fa-home"></i>
+              <% end %>
+            </div>
+            <div class="col">
+              <%= link_to user_path, class: "btn btn-outline-light", style: "width:100%;", title: "My Page" do %>
+                <i class="fas fa-user"></i>
+              <% end %>
+            </div>
+            <div class="col">
+              <%= link_to user_path, class: "btn btn-outline-light", style: "width:100%;", title: "Answer Sheets" do %>
+                <i class="far fa-copy"></i>
+              <% end %>
+            </div>
+            <div class="col">
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-light", style: "width:100%;" %>
+            </div>
+          <% else %>
+            <div class="col">
+              <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-light", style: "width:100%;" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

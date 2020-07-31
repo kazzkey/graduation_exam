@@ -1,50 +1,95 @@
-<%= form_with(model: exam, local: true) do |form| %>
-  <div>
+<div class="float-right">
+  <%= link_to "Back", :back %>
+</div>
+<br>
+
+<div class="card border-primary mx-auto p-4">
+
+  <!-- Form (Exam info.) -->
+  <%= form_with(model: exam, local: true) do |form| %>
     <div>
-      <%= form.label :title %>
-      <%= form.text_field :title %>
+      <h3 class="text-primary">試験情報入力欄
+        <p style="font-size:0.8rem;"> ※ 公開にチェックを入れると試験情報が公開されます。</p>
+      </h3>
+
+      <div class="form-row">
+        <div class="form-group col">
+          <%= form.label :title %>
+          <%= form.text_field :title, class: "form-control" %>
+        </div>
+
+        <div class="form-group col-xs-2">
+          <%= form.label :release %><br>
+          <%= form.check_box :release, class: "form-control" %>
+        </div>
+
+        <div class="w-100"></div>
+
+        <div class="form-group col">
+          <%= form.label :deadline %>
+          <%= form.date_field :deadline,
+            value: Time.now.strftime("%Y-%m-%d"),
+            class: "form-control"
+          %>
+        </div>
+
+        <!-- class="subject"はRSpec用の設定 -->
+        <div class="subject form-group col">
+          <%= form.label :subject %>
+          <%= form.collection_select(
+            :subject_id, Subject.all, :id, :name,
+            { prompt: "選択してください" }, { class: "form-control" }
+          ) %>
+        </div>
+      </div>
     </div>
-    <!-- class="subject"はRSpec用の設定 -->
-    <div class="subject">
-      <%= form.label :subject %>
-      <%= form.collection_select(:subject_id, Subject.all, :id, :name, prompt: "選択してください") %>
-    </div>
+
+    <hr class="border-primary">
+
+    <!-- Nested Form (Questions info.) -->
     <div>
-      <%= form.label :deadline %>
-      <%= form.date_field :deadline, value: Time.now.strftime("%Y-%m-%d") %>
+      <% n = 0 %>
+      <h5 class="text-primary mb-4">問題入力欄</h5>
+      <%= form.fields_for :questions do |f| %>
+
+        <div class="card border-primary p-2 my-3">
+          <strong><%= "Q.#{n+=1}" %></strong>
+
+          <div class="form-group">
+            <%= f.label :content %>
+            <%= f.text_area :content, class: "form-control", size: "100x5" %>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <p class="mb-2">Image(任意)</p>
+              <%= f.label :image, class: "btn btn-outline-secondary", style: "width:100%;" do %>
+                <i class="far fa-image"> 画像ファイルを選択</i>
+              <% end %>
+              <%= f.file_field :image, class: "image_form", style: "display:none;" %>
+            </div>
+
+            <div class="form-group col">
+              <%= f.label :correct_answer %>
+              <%= f.select :correct_answer,
+                {'①':1, '②':2, '③':3, '④':4},
+                { include_blank: "選択してください" },
+                { class: "form-control" }
+              %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :description %>
+            <%= f.text_field :description, class: "form-control", placeholder: "任意" %>
+          </div>
+        </div>
+      <% end %>
     </div>
-    <div>
-      <%= form.label :release %>
-      <%= form.check_box :release, {}, "true", "false" %>
+
+    <div class="form-row mt-4">
+      <%= form.submit "create", class: "form-control btn btn-primary col mx-1" %>
+      <%= link_to "Back", :back, class: "form-control btn btn-outline-primary col mx-1" %>
     </div>
-  </div>
-  <br>
-
-  <!-- ネストフォーム(questions) -->
-  <div>
-    <%= form.fields_for :questions do |f| %>
-
-      <div class="image">
-        <%= f.label :image %>
-        <%= f.file_field :image %>
-      </div>
-
-      <div class="content">
-        <%= f.label :content %>
-        <%= f.text_area :content %>
-      </div>
-
-      <div class="field">
-        <%= f.label :correct_answer %>
-        <%= f.select :correct_answer, {'①':1, '②':2, '③':3, '④':4}, { include_blank: '選択してください' } %>
-      </div>
-
-      <div class="field">
-        <%= f.label :description %>
-        <%= f.text_field :description %>
-      </div>
-    <% end %>
-  </div>
-
-  <%= form.submit "create" %>
-<% end %>
+  <% end %>
+</div>

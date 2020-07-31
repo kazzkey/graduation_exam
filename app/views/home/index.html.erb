@@ -1,28 +1,32 @@
-<h1>Home#index</h1>
+<div class="jumbotron">
+  <% unless @exams %>
+    <h2>現在解答できるテストはありません</h2>
+    <i class="fas fa-coffee fa-3x text-primary float-right"></i>
+  <% else %>
+    <h2>現在<%= @exams.length %>件のテストがあります</h2>
+    <p>がんばって取り組みましょう!</p>
+    <i class="fas fa-pencil-alt fa-3x text-primary float-right"></i>
+  <% end %>
+</div>
 
-<h2>現在<%= @exams.length %>件のテストがあります</h2>
-<h4>がんばって取り組みましょう。</h4>
+<% @exams.each do |exam| %>
+  <div class="card my-3 py-3 px-2">
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Deadline</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @exams.each do |exam| %>
-      <tr>
-        <td><%= exam.title %></td>
-        <td><%= exam.deadline %></td>
-        <% unless answer_check(exam) %>
-          <td><%= link_to '解答', new_exam_answer_sheet_path(exam) %></td>
-        <% else %>
-          <td>解答済</td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="row">
+      <div class="col-4"><%= exam.title %></div>
+      <div class="col-3"><%= exam.subject.name %></div>
+      <div class="col-3"><%= exam.deadline %></div>
+      <% unless answer_check(exam) %>
+        <div class="badge">
+          <%= link_to new_exam_answer_sheet_path(exam) do %>
+            <i class="fas fa-pencil-alt"> 解答</i>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="badge badge-primary">
+          <i class="fas fa-check-circle"></i> 解答済
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

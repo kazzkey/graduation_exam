@@ -1,0 +1,15 @@
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+
+$primary: #0277BD;
+$secondary: #E1F5FE;
+$info: #00B0FF;
+
+* {
+  font-size: 15px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+
+@import "bootstrap";
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@700&family=Fredoka+One&family=M+PLUS+Rounded+1c&display=swap');

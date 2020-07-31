@@ -1,8 +1,6 @@
-<h1>AnswerSheets#new</h1>
-
 <%= form_with(model: [@exam, @answer_sheet], local: true) do |form| %>
   <% if @answer_sheet.errors.any? %>
-    <div id="error_explanation">
+    <div class="alert alert-primary">
       <ul>
       <% @answer_sheet.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,45 +9,68 @@
     </div>
   <% end %>
 
+  <div class="card border-primary shadow-lg mx-auto">
 
-  <!-- 問題文(questions) -->
-  <p>
-    <strong>Title:</strong>
-    <%= @exam.title %>
-  </p>
+    <!-- 問題文(questions) -->
+    <div class="m-4">
+      <h2><%= @exam.title %></h2>
+      <div class="text-right">
+        学籍番号[ <strong><%= current_user.student_id %></strong> ]
+        氏名[ <strong><%= current_user.name %></strong> ]
 
-  <p>
-    <strong>Deadline:</strong>
-    <%= @exam.deadline %>
-  </p>
-  <br>
-  <% n = 0 %>
-  <% @exam.questions.each do |question| %>
-
-    <strong><%= "問:#{n+=1}" %></strong>
-    <% if question.image.present? %>
-      <p>
-        <%= image_tag question.image.url %>
-      </p>
-    <% end %>
-    <%= simple_format question.content %>
-
-
-    <!-- ネストフォーム(answers) -->
-    <div class="">
-      <%= form.fields_for :answers do |f| %>
-
-        <div class="field">
-          <%= f.label :choice %>
-          <%= f.select :choice, {"①":1, "②":2, "③":3, "④":4}, { include_blank: "選択してください" } %>
-        </div>
-        <%= f.hidden_field :question_id, value: question.id %>
-      <% end %>
+        <h1 class="mt-3">全<%= @exam.questions.length %>問</h1>
+      </div>
     </div>
-  <% end %>
-  <br>
 
-  <div class="actions">
-    <%= form.submit %>
+    <div class="card-body">
+      <p style="font-size:0.9rem;">
+        <i class="fas fa-exclamation-circle mr-2"></i>
+        以下の問いについて、適当なものを選択肢からそれぞれ選んで答えなさい。
+      </p>
+      <br>
+
+      <% n = 0 %>
+      <% @exam.questions.order(:id).each do |question| %>
+
+        <div class="position-absolute badge badge-pill badge-primary" style="z-index:1; font-size:1.1rem;">
+          <strong><%= "Q.#{n+=1}" %></strong>
+        </div>
+
+        <div class="card mt-2 p-4 border-primary">
+          <% if question.image.present? %>
+            <p>
+              <%= image_tag question.image.url, style: "width:100%;" %>
+            </p>
+          <% end %>
+          <%= simple_format question.content %>
+
+          <!-- Nested Form(Answers info.) -->
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <%= form.fields_for :answers do |f| %>
+
+              <label class="btn btn-sm btn-outline-primary">
+                <%= f.radio_button :choice, 1, style: "display:none;", autocomplete: "off" %>1
+              </label>
+              <label class="btn btn-sm btn-outline-primary">
+                <%= f.radio_button :choice, 2, style: "display:none;", autocomplete: "off" %>2
+              </label>
+              <label class="btn btn-sm btn-outline-primary">
+                <%= f.radio_button :choice, 3, style: "display:none;", autocomplete: "off" %>3
+              </label>
+              <label class="btn btn-sm btn-outline-primary rounded-right">
+                <%= f.radio_button :choice, 4, style: "display:none;", autocomplete: "off" %>4
+              </label>
+              <%= f.hidden_field :question_id, value: question.id %>
+            <% end %>
+          </div>
+        </div>
+        <br>
+      <% end %>
+      <br>
+
+      <div class="actions">
+        <%= form.submit class: "form-control btn btn-primary" %>
+      </div>
+    </div>
   </div>
 <% end %>

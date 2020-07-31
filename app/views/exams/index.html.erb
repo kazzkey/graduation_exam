@@ -1,15 +1,44 @@
-<h1>Exams#index</h1>
+<div class="jumbotron">
+  <div class="container clearfix">
+    <h2 class="float-left">試験作成画面</h2>
+    <%= link_to new_exam_path, class: "btn btn-primary float-right" do %>
+      <i class="fas fa-pencil-alt"> New</i>
+    <% end %>
+  </div>
+</div>
 
 <% @exams.each do |exam| %>
-  <div>
-    <%= exam.title %>
-    <%= exam.deadline %>
-    <%= exam.release ? "○" : "×" %>
-    <%= link_to 'Show', exam %>
-    <%= link_to 'Edit', edit_exam_path(exam) %>
-    <%= link_to 'Destroy', exam, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <div class="card">
+
+    <div class="card-header">
+      <strong><%= exam.title %></strong> (<%= exam.subject.name %>)
+
+      <div class="float-right">
+        <% if exam.release %>
+          <div class="badge badge-pill badge-primary">公開</div>
+        <% else %>
+          <div class="badge badge-pill badge-danger">非公開</div>
+        <% end%>
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <div class="card-text">締切：<%= exam.deadline %></div>
+
+      <div class="float-right">
+        <%= link_to exam do %>
+          <i class="far fa-file-alt mx-1" title="Show"></i>
+        <% end %>
+
+        <%= link_to edit_exam_path(exam) do %>
+          <i class="far fa-edit mx-1" title="Edit"></i>
+        <% end %>
+
+        <%= link_to exam, method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <i class="far fa-trash-alt mx-1" title="Delete"></i>
+        <% end %>
+      </div>
+    </div>
   </div>
 <% end %>
-<div>
-  <%= link_to 'New', new_exam_path %>
-</div>
