@@ -11,9 +11,9 @@
           <p><%= simple_format comment.content %></p>
           <p class="text-right">
             <% if current_user.id == comment.user_id || current_user.admin %>
-              <%= link_to "編集", edit_answer_sheet_comment_path(answer_sheet, comment), remote: true %>
-              <%= link_to "削除", answer_sheet_comment_path(comment.answer_sheet_id, comment.id), method: :delete, remote: true,
-                                          data: { confirm: "本当に削除しますか?"} %>
+              <%= link_to t("views.link.edit"), edit_answer_sheet_comment_path(answer_sheet, comment), remote: true %>
+              <%= link_to t("views.link.delete"), answer_sheet_comment_path(comment.answer_sheet_id, comment.id), method: :delete, remote: true,
+                                          data: { confirm: t("views.messages.are_you_sure") } %>
             <% end %>
           </p>
         </div>

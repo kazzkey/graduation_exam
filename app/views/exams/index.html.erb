@@ -21,12 +21,12 @@
         <div class="badge badge-primary px-2">
           <%= exam.subject.name %>
         </div>
-        <%= exam.created_at %>
+        <%= l exam.created_at, format: :long %>
       </div>
 
       <p class="card-title"><strong><%= exam.title %></strong></p>
 
-      <div class="card-text">締切：<%= exam.deadline %></div>
+      <div class="card-text">締切：<%= l exam.deadline, format: :long %></div>
 
       <div class="float-right">
         <%= link_to exam do %>
@@ -37,7 +37,7 @@
           <i class="far fa-edit fa-lg fa-fw" title="Edit"></i>
         <% end %>
 
-        <%= link_to exam, method: :delete, data: { confirm: 'Are you sure?' } do %>
+        <%= link_to exam, method: :delete, data: { confirm: t("views.messages.are_you_sure") } do %>
           <i class="far fa-trash-alt fa-lg fa-fw" title="Delete"></i>
         <% end %>
       </div>
