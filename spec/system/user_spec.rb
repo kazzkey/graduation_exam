@@ -28,39 +28,18 @@ RSpec.describe 'ユーザ管理機能', type: :system do
         expect(page).to have_content '山田花子'
         expect(page).to have_content 'yamada@example.com'
       end
-
-      it '試験ページに飛ぶことができる' do
-        visit root_path
-        click_link 'マイページ'
-        sleep 0.5
-        click_link '詳細'
-        sleep 0.5
-        expect(page).to have_content 'ExamTitle'
-        expect(page).to have_content '1点'
-      end
-
-      it '試験ページ詳細に飛ぶことができる' do
-        visit root_path
-        click_link 'マイページ'
-        sleep 0.5
-        click_link '詳細'
-        sleep 0.5
-        click_link '詳細をみる'
-        sleep 0.5
-        expect(page).to have_content '1点'
-        expect(page).to have_content '正解！！'
-        expect(page).to have_content 'あなたの選んだ答え：1'
-      end
     end
 
     context 'メールアドレスを編集した場合' do
       it '情報が更新される' do
         visit user_path
-        click_link '編集'
+        click_link 'プロフィールを編集'
         sleep 0.5
         fill_in 'Eメール', with: 'hanako@example.com'
-        click_on '更新する'
+        fill_in '現在のパスワード', with: 'password'
+        click_on '更新'
         sleep 0.5
+        click_link 'マイページ'
         expect(page).to have_content 'hanako@example.com'
       end
     end

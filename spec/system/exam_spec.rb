@@ -20,8 +20,8 @@ RSpec.describe '試験作成機能', type: :system do
       it '作成済みの試験が表示され、子となる問題が1つ存在する' do
         visit exams_path
         expect(page).to have_content 'ExamTitle'
-        expect(page).to have_content '2021-01-01'
-        expect(page).to have_content '×'
+        expect(page).to have_content '2021年01月01日(金)'
+        expect(page).to have_content '非公開'
         expect( Question.count ).to eq 1
       end
     end
@@ -29,7 +29,7 @@ RSpec.describe '試験作成機能', type: :system do
     context '試験を削除した場合' do
       it '削除された試験は存在しなくなり、紐付けられた問題も削除される' do
         visit exams_path
-        click_on 'Destroy'
+        find('.fa-trash-alt').click
         page.driver.browser.switch_to.alert.accept
         sleep 0.5
         expect(page).not_to have_content 'ExamTitle'
@@ -50,30 +50,30 @@ RSpec.describe '試験作成機能', type: :system do
       before do
         visit exams_path
         click_on 'New'
-        fill_in 'Title', with: 'test_title'
+        fill_in '試験名', with: 'test_title'
         find('.subject').select('Japanese')
-        fill_in 'Deadline', with: '002020-12-31'
-        check 'Release'
-        attach_file 'Image', "#{Rails.root}/spec/factories/test.jpg", match: :first
-        fill_in 'Content', with: 'QuestionContent', match: :first
-        select '①', from: 'Correct answer', match: :first
-        click_on 'create'
+        fill_in '締切', with: '002020-12-31'
+        check '公開'
+        find('.image_form', visible: false, match: :first).set("#{Rails.root}/spec/factories/test.jpg")
+        fill_in '問題文', with: 'QuestionContent', match: :first
+        select '①', from: '正解', match: :first
+        click_on '送信'
       end
 
       it 'データが保存されている' do
         visit exams_path
         expect(page).to have_content 'test_title'
-        expect(page).to have_content '2020-12-31'
-        expect(page).to have_content '○'
+        expect(page).to have_content '2020年12月31日(木)'
+        expect(page).to have_content '公開'
       end
 
       it '詳細ページには問題情報も表示される' do
         visit exams_path
-        click_on 'Show'
+        find('.fa-file-alt').click
         sleep 0.5
         expect(page).to have_selector('img[src$="test.jpg"]')
         expect(page).to have_content 'QuestionContent'
-        expect(page).to have_content '1'
+        expect(page).to have_content '正解:1'
       end
     end
   end
@@ -90,15 +90,15 @@ RSpec.describe '試験作成機能', type: :system do
       it '該当の内容が表示されたページに遷移する' do
         exam = FactoryBot.create(:exam_with_question)
         visit exams_path
-        click_on 'Show'
+        find('.fa-file-alt').click
         sleep 0.5
         expect(page).to have_content 'ExamTitle'
         expect(page).to have_content 'Japanese'
-        expect(page).to have_content '2021-01-01'
+        expect(page).to have_content '2021/01/01'
         expect(page).to have_content '×'
         expect(page).to have_selector('img[src$="test.jpg"]')
         expect(page).to have_content 'QuestionText'
-        expect(page).to have_content '1'
+        expect(page).to have_content '正解:1'
       end
     end
   end
@@ -115,12 +115,13 @@ RSpec.describe '試験作成機能', type: :system do
       it '公開情報がtrueに変更される' do
         exam = FactoryBot.create(:exam_with_question)
         visit exams_path
-        click_on 'Edit'
+        find('.fa-edit').click
         sleep 0.5
-        check 'Release'
-        click_on 'create'
+        check '公開'
+        fill_in '締切', with: '002020-12-31'
+        click_on '更新'
         sleep 0.5
-        expect(page).to have_content '○'
+        expect(page).to have_content '公開'
       end
     end
   end
