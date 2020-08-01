@@ -1,7 +1,7 @@
 <div>
   <% comments.each do |comment| %>
     <% if comment.id.present? %>
-      <div class="card p-4 bg-secondary">
+      <div class="card p-4 bg-light">
         <div class="row">
           <p class="col"><%= comment.user.name %></p>
           <p class="col text-right"><%= time_ago_in_words(comment.created_at) %>前</p>
