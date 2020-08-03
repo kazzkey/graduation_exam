@@ -11,13 +11,14 @@
         <div class="badge badge-primary px-2">
           <%= as.exam.subject.name %>
         </div>
+        <%= link_to as.user.name, teacher_user_path(as.user) %>
         <%= l as.created_at, format: :long %>
       </div>
 
       <p class="card-title"><strong><%= as.exam.title %></strong></p>
 
       <div class="float-right">
-        <%= link_to teacher_answer_sheet_path(as), class: "stretched-link" do %>
+        <%= link_to teacher_answer_sheet_path(as) do %>
           <i class="far fa-file-alt fa-lg fa-fw" title="Show"></i>
         <% end %>
 

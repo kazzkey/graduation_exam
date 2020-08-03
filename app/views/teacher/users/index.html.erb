@@ -1,0 +1,13 @@
+<div class="jumbotron">
+  <h2>ユーザ一覧(教員用)</h2>
+  <i class="far fa-copy fa-3x text-primary float-right"></i>
+  <br>
+</div>
+
+<% @users.each do |user| %>
+  <div class="card p-2 m-2">
+    [<%= user.student_id %>]
+    <%= user.name %>
+    <%= link_to t("views.link.show"), teacher_user_path(user), class: "text-right" %>
+  </div>
+<% end %>

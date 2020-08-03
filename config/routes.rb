@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   end
 
   namespace :teacher do
+    resources :users, only: %i(index show)
     resources :answer_sheets, only: %i(index show result) do
       get :result, on: :member
     end

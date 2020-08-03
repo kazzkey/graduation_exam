@@ -37,4 +37,6 @@ class User < ApplicationRecord
   validates :student_id, presence: true, uniqueness: true
   validates :name, presence: true, length: { maximum: 255 }
   validates :email, uniqueness: true, length: { maximum: 255 }
+
+  default_scope -> { order(:id) }
 end

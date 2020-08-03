@@ -1,0 +1,10 @@
+<div class="card p-4">
+  <p>学籍番号：<%= @user.student_id %></p>
+
+  <p>氏名：<%= @user.name %></p>
+</div>
+
+<hr>
+
+<p>テスト成績</p>
+<%= area_chart [{ name: "得点", data: @point_charts }, { name: "平均点", data: @average_charts }] %>
