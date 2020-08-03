@@ -11,6 +11,12 @@ Rails.application.routes.draw do
     resources :comments, only: %i(create edit update destroy)
   end
 
+  namespace :teacher do
+    resources :answer_sheets, only: %i(index show result) do
+      get :result, on: :member
+    end
+  end
+
   resources :exams do
     resources :answer_sheets, only: %i(new create result) do
       get :result, on: :member
