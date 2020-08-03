@@ -14,7 +14,7 @@ class SubjectsController < ApplicationController
       if @subject.save
         format.js { render :index }
       else
-        format.html { redirect_to subjects_path, alert: '作成できませんでした...' }
+        format.html { redirect_to subjects_path, alert: t("views.messages.failed_to_create") }
       end
     end
   end
@@ -30,7 +30,7 @@ class SubjectsController < ApplicationController
       if @subject.update(subject_params)
         format.js { render :index }
       else
-        flash.now[:alert] = t("views.messages.failed_to_update_comment")
+        flash.now[:alert] = t("views.messages.failed_to_update")
         format.js { render :edit }
       end
     end
@@ -39,7 +39,7 @@ class SubjectsController < ApplicationController
   def destroy
     @subject.destroy
     respond_to do |format|
-      flash.now[:notice] = t("views.messages.delete_comment")
+      flash.now[:notice] = t("views.messages.deleted")
       format.js { render :index }
     end
   end

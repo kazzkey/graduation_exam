@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
         format.js { render :index }
       else
         format.html { redirect_to answer_sheet_path(@answer_sheet),
-                      alert: t("views.messages.failed_to_comment")
+                      alert: t("views.messages.failed_to_create")
                     }
       end
     end
@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
         if @comment.update(comment_params)
           format.js { render :index }
         else
-          flash.now[:alert] = t("views.messages.failed_to_update_comment")
+          flash.now[:alert] = t("views.messages.failed_to_update")
           format.js { render :edit }
         end
       end
@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.find(params[:id])
     @comment.destroy
     respond_to do |format|
-      flash.now[:notice] = t("views.messages.delete_comment")
+      flash.now[:notice] = t("views.messages.deleted")
       format.js { render :index }
     end
   end
