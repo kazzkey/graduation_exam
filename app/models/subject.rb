@@ -11,4 +11,6 @@ class Subject < ApplicationRecord
   has_many :exams
 
   validates :name, length: { maximum: 255 }
+
+  default_scope -> { order(:id) }
 end

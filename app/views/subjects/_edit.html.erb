@@ -1,0 +1,26 @@
+<%= form_with(model: subject) do |form| %>
+  <div class="row">
+    <% if subject.errors.any? %>
+      <div id="error_explanation">
+        <ul>
+        <% subject.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form.text_field :name, id: "content_#{subject.id}", class: "form-control" %>
+  </div>
+
+  <div class="form-row">
+    <div class="col">
+      <%= form.submit class: "form-control btn btn-primary" %>
+    </div>
+    <div class="col">
+      <%= link_to t("views.link.back"), :back, class: "form-control btn btn-outline-primary" %>
+    </div>
+  </div>
+<% end %>

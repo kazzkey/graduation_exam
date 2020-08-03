@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :subjects, only: %i(index create edit update destroy)
+
   resources :exams do
     resources :answer_sheets, only: %i(new create result) do
       get :result, on: :member

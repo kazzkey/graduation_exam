@@ -1,0 +1,12 @@
+<% @subjects.each do |subject| %>
+  <div class="card card-body my-2">
+    <div id="this_subject_<%= subject.id %>">
+      <%= subject.name %>
+      <p class="text-right">
+        <%= link_to t("views.link.edit"), edit_subject_path(subject), remote: true %>
+        <%= link_to t("views.link.delete"), subject_path(subject), method: :delete, remote: true,
+                                    data: { confirm: t("views.messages.are_you_sure") } %>
+      </p>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,19 @@
+<%= form_with(model: subject) do |form| %>
+  <% if subject.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% subject.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="actions form-group">
+    <%= form.submit class: "form-control btn btn-primary" %>
+  </div>
+<% end %>
