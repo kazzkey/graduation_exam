@@ -1,0 +1,15 @@
+<div class="jumbotron">
+  <h2>教科管理画面(教員用)</h2>
+  <p class="btn btn-primary float-right" data-toggle="collapse" data-target="#subject_form">
+    <i class="fas fa-pencil-alt"> New</i>
+  </p>
+  <br>
+</div>
+
+<div class="collapse" id="subject_form">
+  <%= render 'form', subject: @subject %>
+</div>
+
+<div id="subjects_area">
+  <%= render 'index', subjects: @subjects %>
+</div>

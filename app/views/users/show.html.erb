@@ -16,13 +16,9 @@
   <% end %>
 </div>
 
+<hr class="my-5">
 
-<hr>
-
-<p>テスト成績</p>
-<% @user.answer_sheets.each do |as| %>
-  <%= as.exam.title %>：
-  <%= link_to t("views.link.show"), answer_sheet_path(as) %>
+<% unless @user.admin? %>
+  <h3 class="text-primary">テスト成績</h3>
+  <%= area_chart [{ name: "得点", data: @point_charts }, { name: "平均点", data: @average_charts }] %>
 <% end %>
-
-<%= area_chart [{ name: "得点", data: @point_charts }, { name: "平均点", data: @average_charts }] %>

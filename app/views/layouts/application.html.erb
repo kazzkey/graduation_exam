@@ -18,18 +18,20 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav">
-            <% if user_signed_in? %>
+            <% if user_signed_in? && current_user.admin? %>
+              <li class="nav-item">
+                <%= link_to "マイページ", user_path, class: "nav-link" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "教員用管理画面", teacher_root_path, class: "nav-link" %>
+              </li>
+            <% elsif user_signed_in? %>
               <li class="nav-item">
                 <%= link_to "マイページ", user_path, class: "nav-link" %>
               </li>
               <li class="nav-item">
                 <%= link_to "解答用紙", answer_sheets_path, class: "nav-link" %>
               </li>
-              <% if current_user.admin %>
-                <li class="nav-item">
-                  <%= link_to "問題管理ページ", exams_path, class: "nav-link" %>
-                </li>
-              <% end %>
             <% else %>
               <li class="nav-item">
                 <%= link_to "新規登録", new_user_registration_path, class: "nav-link" %>
@@ -57,28 +59,43 @@
     <footer class="fixed-bottom bg-primary d-block d-sm-none">
       <div class="container my-3">
         <div class="row">
-          <% if user_signed_in? %>
+          <% if user_signed_in? && current_user.admin? %>
             <div class="col">
-              <%= link_to root_path, class: "btn btn-outline-light", style: "width:100%;", title: "Home" do %>
+              <%= link_to root_path, class: "text-center text-light d-block py-2 w-100", title: "Home" do %>
+                <i class="fas fa-home fa-2x"></i>
+              <% end %>
+            </div>
+            <div class="col">
+              <%= link_to user_path, class: "text-center text-light d-block py-2 w-100", title: "My Page" do %>
+                <i class="fas fa-user fa-2x"></i>
+              <% end %>
+            </div>
+            <div class="col">
+              <%= link_to teacher_root_path, class: "text-center text-light d-block py-2 w-100", title: "Teacher's Page" do %>
+                <i class="fas fa-chalkboard-teacher fa-2x"></i>
+              <% end %>
+            </div>
+            <div class="col">
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "text-center text-light d-block py-2 w-100" %>
+            </div>
+          <% elsif user_signed_in? %>
+            <div class="col">
+              <%= link_to root_path, class: "text-center text-light d-block py-2 w-100", title: "Home" do %>
                 <i class="fas fa-home"></i>
               <% end %>
             </div>
             <div class="col">
-              <%= link_to user_path, class: "btn btn-outline-light", style: "width:100%;", title: "My Page" do %>
+              <%= link_to user_path, class: "text-center text-light d-block py-2 w-100", title: "My Page" do %>
                 <i class="fas fa-user"></i>
               <% end %>
             </div>
             <div class="col">
-              <%= link_to answer_sheets_path, class: "btn btn-outline-light", style: "width:100%;", title: "Answer Sheets" do %>
+              <%= link_to answer_sheets_path, class: "text-center text-light d-block py-2 w-100", title: "Answer Sheets" do %>
                 <i class="far fa-copy"></i>
               <% end %>
             </div>
             <div class="col">
-              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-light", style: "width:100%;" %>
-            </div>
-          <% else %>
-            <div class="col">
-              <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-light", style: "width:100%;" %>
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "text-center text-light d-block py-2 w-100" %>
             </div>
           <% end %>
         </div>

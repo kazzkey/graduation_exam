@@ -1,0 +1,31 @@
+<div class="jumbotron">
+  <h2>教員用 管理画面</h2>
+  <i class="fas fa-chalkboard-teacher fa-3x text-primary float-right"></i>
+  <br>
+</div>
+
+<div class="row">
+  <div class="card col-5 mx-auto my-2 p-4 border-primary">
+    <%= link_to exams_path, class: "stretched-link" do %>
+      試験管理画面<i class="fas fa-pencil-alt fa-2x float-right"></i>
+    <% end %>
+  </div>
+
+  <div class="card col-5 mx-auto my-2 p-4 border-primary">
+    <%= link_to teacher_answer_sheets_path, class: "stretched-link" do %>
+      解答用紙一覧<i class="far fa-copy fa-2x float-right"></i>
+    <% end %>
+  </div>
+
+  <div class="card col-5 mx-auto my-2 p-4 border-primary">
+    <%= link_to subjects_path, class: "stretched-link" do %>
+      教科管理画面<i class="fas fa-book fa-2x float-right"></i>
+    <% end %>
+  </div>
+
+  <div class="card col-5 mx-auto my-2 p-4 border-primary">
+    <%= link_to teacher_users_path, class: "stretched-link" do %>
+      ユーザ管理画面<i class="fas fa-user fa-2x float-right"></i>
+    <% end %>
+  </div>
+</div>

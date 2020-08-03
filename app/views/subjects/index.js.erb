@@ -1,0 +1,4 @@
+$("#subjects_area").html("<%= j(render 'index', subjects: @subjects) %>")
+$("input").val('')
+$('.collapse').collapse('hide')
+$("#flash").html('<%= j(render partial: "layouts/flash") %>');

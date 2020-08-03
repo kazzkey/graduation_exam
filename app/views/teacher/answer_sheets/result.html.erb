@@ -1,0 +1,44 @@
+<div class="card border-primary shadow-lg mx-auto">
+
+  <div class="m-4">
+    <h2><%= @answer_sheet.exam.title %></h2>
+    <div class="text-right">
+      学籍番号[ <strong><%= @answer_sheet.user.student_id %></strong> ]
+      氏名[ <strong><%= @answer_sheet.user.name %></strong> ]
+    </div>
+    <div class="float-right">
+      <p><%= image_tag "line.png",size: '120x120', class:"position-absolute mt-3", style:"z-index:1;" %></p>
+      <h1 class="mt-3 text-danger" style="font-family:'Charm',cursive;" ><%= @answer_sheet.score %>／<%= @answer_sheet.exam.questions.length %>点</h1>
+    </div>
+  </div>
+
+  <div class="card-body">
+
+    <% n = 0 %>
+    <% @answer_sheet.answers.order(:id).each do |answer| %>
+
+      <% if answer.choice == answer.question.correct_answer %>
+        <%= image_tag "maru.png",size: '90x90', class:"position-absolute", style:"z-index:2;" %>
+      <% else %>
+        <%= image_tag "peke.png",size: '90x90', class:"position-absolute", style:"z-index:2;" %>
+      <% end %>
+
+      <div class="position-absolute badge badge-pill badge-primary" style="z-index:1; font-size:1.1rem;">
+        <strong><%= "Q.#{n+=1}" %></strong>
+      </div>
+
+      <div class="card mt-2 p-4 border-primary">
+
+        <div class="card my-2 p-4">
+          <%= simple_format answer.question.content %>
+        </div>
+        <div class="row">
+          <p class="col-sm-3">選んだ答え：<%= answer.choice %></p>
+          <p class="col-sm-3">正解：<%= answer.question.correct_answer %></p>
+        </div>
+        <p><%= answer.question.description %></p>
+      </div>
+      <br>
+    <% end %>
+  </div>
+</div>
