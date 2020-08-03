@@ -14,7 +14,7 @@ class SubjectsController < ApplicationController
       if @subject.save
         format.js { render :index }
       else
-        format.html { redirect_to subjects_path, notice: '作成できませんでした...' }
+        format.html { redirect_to subjects_path, alert: '作成できませんでした...' }
       end
     end
   end
