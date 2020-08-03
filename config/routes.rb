@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { sessions: 'users/sessions' }
 
-  resource :user, only: %i(show edit update)
+  resource :user, only: %i(show)
 
   resources :answer_sheets, only: %i(index show result) do
     get :result, on: :member

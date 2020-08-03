@@ -4,7 +4,9 @@
   <p>氏名：<%= @user.name %></p>
 </div>
 
-<hr>
+<hr class="my-5">
 
-<p>テスト成績</p>
-<%= area_chart [{ name: "得点", data: @point_charts }, { name: "平均点", data: @average_charts }] %>
+<% unless @user.admin? %>
+  <h3 class="text-primary">テスト成績</h3>
+  <%= area_chart [{ name: "得点", data: @point_charts }, { name: "平均点", data: @average_charts }] %>
+<% end %>
