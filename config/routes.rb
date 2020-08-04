@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     resources :comments, only: %i(create edit update destroy)
   end
 
+  resources :notifications, only: %i(index destroy_all) do
+    delete :destroy_all, on: :collection
+  end
+
   namespace :teacher do
     root 'home#index'
     resources :users, only: %i(index show)
