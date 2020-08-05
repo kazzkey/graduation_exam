@@ -32,7 +32,7 @@ RSpec.describe '試験解答機能', type: :system do
         sleep 0.5
         expect(page).not_to have_content 'ExamTitle'
         expect(page).not_to have_content '01/01'
-        expect(page).to have_content '現在0件のテストがあります'
+        expect(page).to have_content '現在解答できるテストはありません'
       end
 
       it '公開されていても締切が過ぎた試験は表示されない' do
@@ -42,7 +42,18 @@ RSpec.describe '試験解答機能', type: :system do
         sleep 0.5
         expect(page).not_to have_content 'ExamTitle'
         expect(page).not_to have_content '01/01'
-        expect(page).to have_content '現在0件のテストがあります'
+        expect(page).to have_content '現在解答できるテストはありません'
+      end
+    end
+
+    context '締切間近(3日以内)の試験が存在した場合' do
+
+      it '締切間近を知らせる通知が表示される' do
+        FactoryBot.create(:exam_with_question, release: true)
+        travel_to Date.new(2020, 12, 29)
+        visit root_path
+        sleep 0.5
+        expect(page).to have_content '「ExamTitle」 の締切が迫っています。'
       end
     end
   end
