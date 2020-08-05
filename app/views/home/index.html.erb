@@ -19,23 +19,31 @@
 </div>
 
 <% @exams.each do |exam| %>
-  <div class="card my-3 py-3 px-2">
+  <div class="card my-2">
+    <div class="card-body">
 
-    <div class="row">
-      <div class="col-4"><%= exam.title %></div>
-      <div class="col-3"><%= exam.subject.name %></div>
-      <div class="col-3"><%= l exam.deadline, format: :short %></div>
-      <% unless answer_check(exam) %>
-        <div class="badge">
-          <%= link_to new_exam_answer_sheet_path(exam) do %>
-            <i class="fas fa-pencil-alt"> 解答</i>
-          <% end %>
+      <div class="small mb-3">
+        <div class="badge badge-primary px-2">
+          <%= exam.subject.name %>
         </div>
-      <% else %>
-        <div class="badge badge-primary">
-          <i class="fas fa-check-circle"></i> 解答済
-        </div>
-      <% end %>
+      </div>
+
+      <div class="card-title"><%= exam.title %></div>
+
+      <div class="float-right">
+        解答締切:<%= l exam.deadline, format: :short %>
+        <% unless answer_check(exam) %>
+          <div class="badge">
+            <%= link_to new_exam_answer_sheet_path(exam) do %>
+              <i class="fas fa-pencil-alt"> 解答</i>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="badge badge-primary">
+            <i class="fas fa-check-circle"></i> 解答済
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>
