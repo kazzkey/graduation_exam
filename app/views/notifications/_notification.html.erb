@@ -1,0 +1,40 @@
+<% visitor = notification.visitor %>
+<% visited = notification.visited %>
+
+<% if current_user.admin? %>
+  <%= link_to teacher_answer_sheet_path(notification.answer_sheet),
+    class: "card card-body text-dark my-2", style: "text-decoration:none;" do
+  %>
+    <span>
+      <span class="border-bottom border-primary" style="font-size:0.9rem;">
+      <%= visitor.name %>さんが
+      <% case notification.action %>
+      <% when 'comment' %>
+        返信しました。</span>
+        <p class="mt-2">「<%= Comment.find_by(id: notification.comment_id)&.content %>」</p>
+      <% end %>
+    </span>
+    <div class="text-black-50" style="font-size:0.8rem;">
+      <%= time_ago_in_words(notification.created_at) %>前
+    </div>
+  <% end %>
+<% else %>
+  <%= link_to notification.answer_sheet,
+    class: "card card-body text-dark my-2", style: "text-decoration:none;" do
+  %>
+    <span>
+      <span class="border-bottom border-primary" style="font-size:0.9rem;">
+      <%= visitor.name %>さんが
+      <% case notification.action %>
+      <% when 'comment' %>
+        コメンしました</span>
+        <% if notification.answer_sheet.user_id == visited.id %>
+          <p class="mt-2">「<%= Comment.find_by(id: notification.comment_id)&.content %>」</p>
+        <% end %>
+      <% end %>
+    </span>
+    <div class="text-black-50" style="font-size:0.8rem;">
+      <%= time_ago_in_words(notification.created_at) %>前
+    </div>
+  <% end %>
+<% end %>

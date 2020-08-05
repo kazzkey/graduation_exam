@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.build(comment_params)
     respond_to do |format|
       if @comment.save
+        @answer_sheet.create_notification_comment!(current_user, @comment.id)
         format.js { render :index }
       else
         format.html { redirect_to answer_sheet_path(@answer_sheet),
@@ -23,14 +24,14 @@ class CommentsController < ApplicationController
 
   def update
     @comment = current_user.comments.find(params[:id])
-      respond_to do |format|
-        if @comment.update(comment_params)
-          format.js { render :index }
-        else
-          flash.now[:alert] = t("views.messages.failed_to_update")
-          format.js { render :edit }
-        end
+    respond_to do |format|
+      if @comment.update(comment_params)
+        format.js { render :index }
+      else
+        flash.now[:alert] = t("views.messages.failed_to_update")
+        format.js { render :edit }
       end
+    end
   end
 
   def destroy

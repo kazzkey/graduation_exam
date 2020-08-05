@@ -1,0 +1,17 @@
+<div class="jumbotron">
+  <h2>通知</h2>
+  <i class="far fa-bell fa-3x text-primary float-right"></i>
+  <br>
+</div>
+
+<% notifications = @notifications.where.not(visitor_id: current_user.id) %>
+
+<% if notifications.exists? %>
+  <%= link_to destroy_all_notifications_path, method: :delete,
+    data: { confirm: t("views.messages.are_you_sure") } do %>
+    <i class="fas fa-trash text-dark"> 全削除</i>
+  <% end %>
+  <%= render notifications %>
+<% else %>
+  <p>通知はありません</p>
+<% end %>

@@ -25,6 +25,12 @@
               <li class="nav-item">
                 <%= link_to "教員用管理画面", teacher_root_path, class: "nav-link" %>
               </li>
+              <li class="nav-item">
+                <%= link_to "通知", notifications_path, class: "nav-link" %>
+              </li>
+              <% if unchecked_notifications.any? %>
+                <i class="fa fa-circle text-warning"></i>
+              <% end %>
             <% elsif user_signed_in? %>
               <li class="nav-item">
                 <%= link_to "マイページ", user_path, class: "nav-link" %>
@@ -32,6 +38,12 @@
               <li class="nav-item">
                 <%= link_to "解答用紙", answer_sheets_path, class: "nav-link" %>
               </li>
+              <li class="nav-item">
+                <%= link_to "通知", notifications_path, class: "nav-link" %>
+              </li>
+              <% if unchecked_notifications.any? %>
+                <i class="fa fa-circle fa-xs text-warning"></i>
+              <% end %>
             <% else %>
               <li class="nav-item">
                 <%= link_to "新規登録", new_user_registration_path, class: "nav-link" %>
@@ -76,26 +88,40 @@
               <% end %>
             </div>
             <div class="col">
-              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "text-center text-light d-block py-2 w-100" %>
+              <%= link_to notifications_path, class: "text-center text-light d-block py-2 w-100", title: "Notification" do %>
+                <% if unchecked_notifications.any? %>
+                <i class="far fa-bell fa-2x"></i>
+                <i class="fas fa-circle fa-xs text-warning position-absolute"></i>
+                <% else %>
+                  <i class="far fa-bell fa-2x"></i>
+                <% end %>
+              <% end %>
             </div>
           <% elsif user_signed_in? %>
             <div class="col">
               <%= link_to root_path, class: "text-center text-light d-block py-2 w-100", title: "Home" do %>
-                <i class="fas fa-home"></i>
+                <i class="fas fa-home fa-2x"></i>
               <% end %>
             </div>
             <div class="col">
               <%= link_to user_path, class: "text-center text-light d-block py-2 w-100", title: "My Page" do %>
-                <i class="fas fa-user"></i>
+                <i class="fas fa-user fa-2x"></i>
               <% end %>
             </div>
             <div class="col">
               <%= link_to answer_sheets_path, class: "text-center text-light d-block py-2 w-100", title: "Answer Sheets" do %>
-                <i class="far fa-copy"></i>
+                <i class="far fa-copy fa-2x"></i>
               <% end %>
             </div>
             <div class="col">
-              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "text-center text-light d-block py-2 w-100" %>
+              <%= link_to notifications_path, class: "text-center text-light d-block py-2 w-100", title: "Notification" do %>
+                <% if unchecked_notifications.any? %>
+                  <i class="far fa-bell fa-2x"></i>
+                  <i class="fas fa-circle fa-xs text-warning position-absolute"></i>
+                <% else %>
+                  <i class="far fa-bell fa-2x"></i>
+                <% end %>
+              <% end %>
             </div>
           <% end %>
         </div>

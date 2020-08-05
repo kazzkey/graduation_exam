@@ -1,5 +1,5 @@
 <div class="jumbotron">
-  <% unless @exams %>
+  <% unless @exams.present? %>
     <h2>現在解答できるテストはありません</h2>
     <i class="fas fa-coffee fa-3x text-primary float-right"></i>
   <% else %>
@@ -7,7 +7,15 @@
     <p>がんばって取り組みましょう!</p>
     <i class="fas fa-pencil-alt fa-3x text-primary float-right"></i>
   <% end %>
-  <br>
+  <div class="text-warning">
+    <% if @exams_on_deadline.present? %>
+      <i class="fas fa-exclamation-triangle"></i>
+      <% @exams_on_deadline.each do |eod| %>
+        <span>「<%= eod.title %>」</span>
+      <% end%>
+      の締切が迫っています。
+    <% end %>
+  </div>
 </div>
 
 <% @exams.each do |exam| %>
