@@ -7,16 +7,14 @@
   %>
     <span>
       <span class="border-bottom border-primary" style="font-size:0.9rem;">
-      <%= visitor.name %>さんからの
+      <%= visitor.name %>さんが
       <% case notification.action %>
       <% when 'comment' %>
-        コメント</span>
-        <% if notification.answer_sheet.user_id == visited.id %>
-          <p class="mt-2"><%= Comment.find_by(id: notification.comment_id)&.content %></p>
-        <% end %>
+        返信しました。</span>
+        <p class="mt-2">「<%= Comment.find_by(id: notification.comment_id)&.content %>」</p>
       <% end %>
     </span>
-    <div style="font-size:0.8rem;">
+    <div class="text-black-50" style="font-size:0.8rem;">
       <%= time_ago_in_words(notification.created_at) %>前
     </div>
   <% end %>
@@ -26,16 +24,16 @@
   %>
     <span>
       <span class="border-bottom border-primary" style="font-size:0.9rem;">
-      <%= visitor.name %>さんからの
+      <%= visitor.name %>さんが
       <% case notification.action %>
       <% when 'comment' %>
-        コメント</span>
+        コメンしました</span>
         <% if notification.answer_sheet.user_id == visited.id %>
-          <p class="mt-2"><%= Comment.find_by(id: notification.comment_id)&.content %></p>
+          <p class="mt-2">「<%= Comment.find_by(id: notification.comment_id)&.content %>」</p>
         <% end %>
       <% end %>
     </span>
-    <div style="font-size:0.8rem;">
+    <div class="text-black-50" style="font-size:0.8rem;">
       <%= time_ago_in_words(notification.created_at) %>前
     </div>
   <% end %>
