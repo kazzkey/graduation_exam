@@ -11,12 +11,7 @@
   <div class="form-group">
     <%= form.text_area :content, placeholder: "コメントを入力", class: "form-control" %>
   </div>
-  <div class="form-row">
-    <div class="col">
-      <%= form.submit class: "form-control btn btn-primary" %>
-    </div>
-    <div class="col">
-      <%= link_to t("views.link.back"), answer_sheets_path, class: "form-control btn btn-outline-primary" %>
-    </div>
+  <div>
+    <%= form.submit class: "form-control btn btn-primary" %>
   </div>
 <% end %>

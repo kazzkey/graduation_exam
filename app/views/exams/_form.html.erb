@@ -22,10 +22,7 @@
 
         <div class="form-group col">
           <%= form.label :deadline %>
-          <%= form.date_field :deadline,
-            value: Time.now.strftime("%Y-%m-%d"),
-            class: "form-control"
-          %>
+          <%= form.date_field :deadline, class: "form-control" %>
         </div>
 
         <!-- class="subject"はRSpec用の設定 -->
@@ -82,9 +79,8 @@
       <% end %>
     </div>
 
-    <div class="form-row mt-4">
+    <div class="mt-4">
       <%= form.submit class: "form-control btn btn-primary col mx-1" %>
-      <%= link_to t("views.link.back"), :back, class: "form-control btn btn-outline-primary col mx-1" %>
     </div>
   <% end %>
 </div>

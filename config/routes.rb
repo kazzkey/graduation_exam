@@ -30,4 +30,8 @@ Rails.application.routes.draw do
       get :result, on: :member
     end
   end
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end
