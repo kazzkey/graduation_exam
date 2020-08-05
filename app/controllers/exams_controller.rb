@@ -3,7 +3,7 @@ class ExamsController < ApplicationController
   before_action :set_exam, only: %i(show edit update destroy)
 
   def index
-    @exams = Exam.order(:id)
+    @exams = Exam.order(id: :desc)
   end
 
   def new
@@ -16,6 +16,8 @@ class ExamsController < ApplicationController
     if @exam.save
       redirect_to exams_path
     else
+      flash.now[:alert] = t("views.messages.failed_to_create")
+      5.times { @exam.questions.build }
       render :new
     end
   end
@@ -29,13 +31,14 @@ class ExamsController < ApplicationController
     if @exam.save
       redirect_to exams_path
     else
+      flash.now[:alert] = t("views.messages.failed_to_update")
       render :edit
     end
   end
 
   def destroy
     @exam.destroy
-    redirect_to exams_path
+    redirect_to exams_path, notice: t("views.messages.deleted")
   end
 
   private
