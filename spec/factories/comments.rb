@@ -25,4 +25,10 @@ FactoryBot.define do
     user_id { 1 }
     answer_sheet_id { 1 }
   end
+
+  factory :admin_comment, class: Comment do
+    content { 'CommentFromAdmin!' }
+    user_id { 2 }
+    answer_sheet_id { 1 }
+  end
 end
