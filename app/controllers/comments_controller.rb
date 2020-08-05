@@ -8,9 +8,15 @@ class CommentsController < ApplicationController
         @answer_sheet.create_notification_comment!(current_user, @comment.id)
         format.js { render :index }
       else
-        format.html { redirect_to answer_sheet_path(@answer_sheet),
-                      alert: t("views.messages.failed_to_create")
-                    }
+        if current_user.admin?
+          format.html { redirect_to teacher_answer_sheet_path(@answer_sheet),
+                        alert: t("views.messages.failed_to_create")
+                      }
+        else
+          format.html { redirect_to answer_sheet_path(@answer_sheet),
+                        alert: t("views.messages.failed_to_create")
+                      }
+        end
       end
     end
   end
