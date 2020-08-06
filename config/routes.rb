@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   root 'home#index'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
-  devise_for :users, controllers: { sessions: 'users/sessions' }
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
 
   devise_scope :user do
     post 'users/guest_student_sign_in', to: 'users/sessions#guest_student'
