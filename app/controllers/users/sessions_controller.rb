@@ -21,13 +21,13 @@ class Users::SessionsController < Devise::SessionsController
   def guest_student
     user = User.student
     sign_in user
-    redirect_to root_path, notice: 'ゲストスチューデントとしてログインしました。'
+    redirect_to root_path, notice: 'ゲスト太郎(生徒)としてログインしとるけぇ'
   end
 
   def guest_teacher
     user = User.teacher
     sign_in user
-    redirect_to teacher_root_path, notice: 'ゲストティーチャーとしてログインしました。'
+    redirect_to teacher_root_path, notice: 'ゲスト先生(教員)としてログインしとるけぇ'
   end
 
   # protected
