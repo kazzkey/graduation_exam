@@ -41,4 +41,23 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, length: { maximum: 255 }
 
   default_scope -> { order(:id) }
+
+  # ゲストログイン(生徒用)
+  def self.student
+    find_or_create_by!(student_id: 202001) do |user|
+      user.name = 'ゲスト太郎'
+      user.email = 'student@example.com'
+      user.password = SecureRandom.urlsafe_base64
+    end
+  end
+
+  # ゲストログイン(教員用)
+  def self.teacher
+    find_or_create_by!(student_id: 777) do |user|
+      user.name = 'ゲスト先生'
+      user.email = 'teacher@example.com'
+      user.password = SecureRandom.urlsafe_base64
+      user.admin = true
+    end
+  end
 end

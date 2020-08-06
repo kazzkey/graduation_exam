@@ -2,6 +2,7 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
+  before_action :check_guest, only: %i(edit update destroy)
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -37,6 +38,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def cancel
   #   super
   # end
+
+  def check_guest
+    if resource.student_id == 202001 || 777
+      redirect_to root_path, alert: 'ゲストユーザーの編集・削除はできんのじゃ〜'
+    end
+  end
 
   # protected
 
