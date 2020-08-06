@@ -30,6 +30,17 @@
 
   <hr class="my-4">
 
+  <div class="row">
+    <%= link_to 'ゲストログイン（生徒用）', users_guest_student_sign_in_path,
+      method: :post, class: "btn btn-outline-info col mx-2"
+    %>
+    <%= link_to 'ゲストログイン（教員用）', users_guest_teacher_sign_in_path,
+      method: :post, class: "btn btn-outline-info col mx-2"
+    %>
+  </div>
+
+  <hr class="my-4">
+
   <div class="text-right" style="font-size:0.8rem;">
     <%= render "devise/shared/links" %>
   </div>
