@@ -41,7 +41,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def check_guest
     if resource.student_id == 202001 || 777
-      redirect_to root_path, alert: 'ゲストユーザーの編集・削除はできません'
+      redirect_to root_path, alert: 'ゲストユーザーの編集・削除はできんのじゃ〜'
     end
   end
 
