@@ -24,7 +24,8 @@ class Users::PasswordsController < Devise::PasswordsController
   # end
 
   def check_guest
-    if params[:user][:email].downcase == 'student@example.com' || 'teacher@example.com'
+    if params[:user][:email].downcase == 'student@example.com' ||
+       params[:user][:email].downcase == 'teacher@example.com'
       redirect_to new_user_session_path, alert: 'ゲストユーザーの変更・削除はできんのじゃ〜'
     end
   end
