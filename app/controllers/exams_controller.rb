@@ -17,7 +17,6 @@ class ExamsController < ApplicationController
       redirect_to exams_path
     else
       flash.now[:alert] = t("views.messages.failed_to_create")
-      5.times { @exam.questions.build }
       render :new
     end
   end

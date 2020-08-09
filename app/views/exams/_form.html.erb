@@ -7,10 +7,21 @@
         <p style="font-size:0.8rem;"> ※ 公開にチェックを入れると試験情報が公開されます。</p>
       </h3>
 
+      <% if exam.errors.any? %>
+        <div id="error_explanation" class="text-warning">
+          <ul>
+          <% exam.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+
       <div class="form-row">
         <div class="form-group col">
           <%= form.label :title %>
-          <%= form.text_field :title, class: "form-control" %>
+          <%= form.text_field :title, class: "form-control", required: true %>
         </div>
 
         <div class="form-group col-xs-2">
@@ -22,7 +33,7 @@
 
         <div class="form-group col">
           <%= form.label :deadline %>
-          <%= form.date_field :deadline, class: "form-control" %>
+          <%= form.date_field :deadline, class: "form-control", required: true %>
         </div>
 
         <!-- class="subject"はRSpec用の設定 -->
@@ -30,7 +41,8 @@
           <%= form.label :subject %>
           <%= form.collection_select(
             :subject_id, Subject.all, :id, :name,
-            { prompt: "選択してください" }, { class: "form-control" }
+            { prompt: "選択してください" }, class: "form-control",
+            required: true
           ) %>
         </div>
       </div>
@@ -49,7 +61,7 @@
 
           <div class="form-group">
             <%= f.label :content %>
-            <%= f.text_area :content, class: "form-control", size: "100x5" %>
+            <%= f.text_area :content, class: "form-control", size: "100x5", required: true %>
           </div>
 
           <div class="form-row">
@@ -66,7 +78,7 @@
               <%= f.select :correct_answer,
                 {'①':1, '②':2, '③':3, '④':4},
                 { include_blank: "選択してください" },
-                { class: "form-control" }
+                class: "form-control", required: true
               %>
             </div>
           </div>
