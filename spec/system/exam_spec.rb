@@ -46,7 +46,7 @@ RSpec.describe '試験作成機能', type: :system do
       click_button 'ログイン'
     end
 
-    context '項目をすべて入力(問題は1問)してcreateを押した場合' do
+    context '項目をすべて入力して作成した場合(画像は1問目のみとする)' do
       before do
         visit exams_path
         click_on 'New'
@@ -54,9 +54,12 @@ RSpec.describe '試験作成機能', type: :system do
         find('.subject').select('Japanese')
         fill_in '締切', with: '002020-12-31'
         check '公開'
-        find('.image_form', visible: false, match: :first).set("#{Rails.root}/spec/factories/test.jpg")
-        fill_in '問題文', with: 'QuestionContent', match: :first
-        select '①', from: '正解', match: :first
+        find('.image_form_1', visible: false, match: :first).set("#{Rails.root}/spec/factories/test.jpg")
+        for n in 0..4 do
+          all('textarea')[n].set("QuestionContent#{n}")
+          # selectの最初の要素が教科の選択なので、それを除くため"n+1"としている。
+          all('select')[n + 1].find("option[value='1']").select_option
+        end
         click_on '送信'
       end
 
