@@ -58,7 +58,6 @@
 
         <div class="card border-primary p-2 my-3">
           <strong><%= "Q.#{n+=1}" %></strong>
-          <%= f.index + 1 %>
 
           <!-- Image Remove Btn -->
           <div id="remove_btn_<%= n %>"
@@ -83,7 +82,7 @@
 
           <div class="form-row">
             <div class="form-group col">
-              <p class="mb-2">画像(任意)</p>
+              <p class="mb-2">画像(任意)　<span class="small border-bottom border-dark">※1MB以下</span></p>
               <%= f.label :image, class: "btn btn-outline-primary", style: "width:100%;" do %>
                 <i class="far fa-image"> 画像ファイルを選択</i>
               <% end %>
@@ -119,6 +118,14 @@
   function readURL(input, n) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
+      var sizeInKB = input.files[0].size/1024;
+      var sizeLimit= 1000;
+
+      // file size validation
+      if (sizeInKB >= sizeLimit) {
+        alert("ファイルは1MB以下のサイズにしてください");
+        return false;
+      }
 
       reader.onload = function (e) {
         $(`#img_prev_${n}`)
