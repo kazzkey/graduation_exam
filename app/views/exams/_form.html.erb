@@ -58,6 +58,7 @@
 
         <div class="card border-primary p-2 my-3">
           <strong><%= "Q.#{n+=1}" %></strong>
+          <%= f.index + 1 %>
 
           <!-- Image Remove Btn -->
           <div id="remove_btn_<%= n %>"
@@ -68,6 +69,12 @@
           </div>
           <!-- Image Preview -->
           <img id="img_prev_<%= n %>" src="#" class="w-100" style="display:none;">
+
+          <% if exam.questions[n-1].image.present? %>
+            <p>
+              <%= image_tag exam.questions[n-1].image.url, id: "existing_img_#{n}", style: "width:100%;" %>
+            </p>
+          <% end %>
 
           <div class="form-group">
             <%= f.label :content %>
@@ -119,6 +126,8 @@
           .css('display', 'block');
         $(`#remove_btn_${n}`)
           .css('display', 'block');
+        $(`#existing_img_${n}`)
+          .css('display', 'none');
       };
 
       reader.readAsDataURL(input.files[0]);
@@ -132,5 +141,7 @@
       .css('display', 'none');
     $(`#remove_btn_${n}`)
       .css('display', 'none');
+    $(`#existing_img_${n}`)
+      .fadeIn(1500);
   };
 </script>
