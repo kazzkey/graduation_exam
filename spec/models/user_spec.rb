@@ -50,6 +50,17 @@ RSpec.describe User, type: :model do
     expect(user).to be_invalid
   end
 
+  it '学籍番号がマイナス入力の場合、無効である' do
+    user = User.new(
+      id: 1,
+      student_id: -1,
+      name: '田中太郎',
+      email: 'tanaka@example.com',
+      password: 'password',
+    )
+    expect(user).to be_invalid
+  end
+
   it '名前がない場合、無効である' do
     user = User.new(
       id: 1,
