@@ -26,6 +26,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'seed-fu'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'ransack'
 
 # Authentication
 gem 'devise'

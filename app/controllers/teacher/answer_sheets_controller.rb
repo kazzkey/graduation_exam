@@ -3,7 +3,8 @@ class Teacher::AnswerSheetsController < ApplicationController
   before_action :set_answer_sheet, only: %i(show result)
 
   def index
-    @answer_sheets = AnswerSheet.order(id: :desc)
+    @q = AnswerSheet.order(id: :desc).ransack(params[:q])
+    @answer_sheets = @q.result.includes(:exam)
   end
 
   def result; end

@@ -2,7 +2,8 @@ class Teacher::UsersController < ApplicationController
   before_action :authenticate_admin
 
   def index
-    @users = User.select(:id, :student_id, :name)
+    @q = User.select(:id, :student_id, :name).ransack(params[:q])
+    @users = @q.result(distinct: true)
   end
 
   def show

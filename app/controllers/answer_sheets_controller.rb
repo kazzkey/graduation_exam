@@ -3,7 +3,8 @@ class AnswerSheetsController < ApplicationController
   before_action :set_answer_sheet, only: %i(new create)
 
   def index
-    @answer_sheets = current_user.answer_sheets.order(id: :desc)
+    @q = current_user.answer_sheets.order(id: :desc).ransack(params[:q])
+    @answer_sheets = @q.result(distinct: true).includes(:exam)
   end
 
   def new
