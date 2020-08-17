@@ -4,6 +4,21 @@
   <br>
 </div>
 
+<div>
+  <%= search_form_for(@q, url: teacher_answer_sheets_path) do |f| %>
+    <div class="input-group">
+      <%= f.search_field :exam_title_cont, class: "form-control offset-sm-6", placeholder: "キーワード検索" %>
+      <%= f.select :exam_subject_id_eq,
+          content_tag(:option, "教科検索", value: "") +
+          options_from_collection_for_select(Subject.all, :id, :name, @q.exam_subject_id_eq),
+          {}, class: "form-control col-sm-2" %>
+      <%= button_tag type: "submit", class: "input-group-append input-group-text" do %>
+        <i class="fas fa-search"></i>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
 <% @answer_sheets.each do |as| %>
   <div class="card my-4">
     <div class="card-body">
