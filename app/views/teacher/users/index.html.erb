@@ -4,6 +4,20 @@
   <br>
 </div>
 
+<div>
+  <%= search_form_for(@q, url: teacher_users_path) do |f| %>
+    <div class="input-group">
+      <%= f.search_field :student_id_eq, class: "form-control offset-sm-6", placeholder: "学籍番号検索" %>
+      <%= f.search_field :name_cont, class: "form-control", placeholder: "名前検索" %>
+
+      <%= button_tag type: "submit", class: "input-group-append input-group-text" do %>
+        <i class="fas fa-search"></i>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<br>
+
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="student-tab" data-toggle="tab" href="#student" role="tab" aria-selected="true">Student</a>
