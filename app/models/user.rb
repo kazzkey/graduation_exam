@@ -40,7 +40,8 @@ class User < ApplicationRecord
             presence: true, uniqueness: true,
             numericality: { only_integer: true, greater_than: 0 }
   validates :name, presence: true, length: { maximum: 255 }
-  validates :email, uniqueness: true, length: { maximum: 255 }
+  validates :email, uniqueness: true, length: { maximum: 255 },
+                    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
   default_scope -> { order(:id) }
 
