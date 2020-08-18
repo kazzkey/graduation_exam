@@ -20,10 +20,10 @@
 
 <table class="table table-sm table-bordered table-hover my-4">
   <thead class="alert-primary">
-    <tr>
-      <th scope="col"><%= sort_link(@q, :id) %></th>
-      <th scope="col"><%= sort_link(@q, :exam_title) %></th>
-      <th scope="col"><%= sort_link(@q, :rate) %></th>
+    <tr class="text-center">
+      <th style="width:50px;"><%= sort_link(@q, :id) %></th>
+      <th style="width:40%;"><%= sort_link(@q, :exam_title) %></th>
+      <th><%= sort_link(@q, :rate) %></th>
       <th colspan="1"></th>
     </tr>
   </thead>
@@ -31,10 +31,10 @@
   <tbody>
     <% @questions.each do |question| %>
       <tr>
-        <th scope="row"><%= question.id %></th>
+        <th scope="row" class="text-center"><%= question.id %></th>
         <td><%= question.exam.title %></td>
         <td><%= question.rate ? "#{question.rate}%" : "算出なし" %></td>
-        <td><%= link_to t("views.link.show"), exam_path(question.exam) %></td>
+        <td class="text-center"><%= link_to t("views.link.show"), exam_path(question.exam) %></td>
       </tr>
     <% end %>
   </tbody>
