@@ -2,7 +2,10 @@ class AnalyticsController < ApplicationController
   before_action :authenticate_admin
 
   def index
-    @questions = Question.select(:id, :exam_id, :content, :rate).order(:id)
+    @q = Question.select(:id, :exam_id, :content, :rate)
+                 .order(:id).ransack(params[:q])
+    @questions = @q.result.includes(:exam)
+
   end
 
   def calculate

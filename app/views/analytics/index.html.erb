@@ -7,12 +7,23 @@
   <br>
 </div>
 
-<table class="table table-sm table-bordered table-hover">
+<div>
+  <%= search_form_for(@q, url: analytics_path ) do |f| %>
+    <div class="input-group">
+      <%= f.search_field :exam_title_cont, class: "form-control offset-sm-6", placeholder: "キーワード検索" %>
+      <%= button_tag type: "submit", class: "input-group-append input-group-text" do %>
+        <i class="fas fa-search"></i>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<table class="table table-sm table-bordered table-hover my-4">
   <thead class="alert-primary">
     <tr>
-      <th scope="col">id</th>
-      <th scope="col">試験名</th>
-      <th scope="col">正答率</th>
+      <th scope="col"><%= sort_link(@q, :id) %></th>
+      <th scope="col"><%= sort_link(@q, :exam_title) %></th>
+      <th scope="col"><%= sort_link(@q, :rate) %></th>
       <th colspan="1"></th>
     </tr>
   </thead>
