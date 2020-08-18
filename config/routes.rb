@@ -40,5 +40,9 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :analytics, only: %i(index calculate) do
+    patch :calculate, on: :collection
+  end
+
   mount LetterOpenerWeb::Engine, at: "/letter_opener"
 end

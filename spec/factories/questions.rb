@@ -7,7 +7,7 @@
 #  correct_answer :integer          not null
 #  description    :string
 #  image          :string
-#  rate           :integer
+#  rate           :decimal(, )
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  exam_id        :bigint
