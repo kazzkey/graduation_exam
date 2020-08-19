@@ -10,7 +10,7 @@
 <div>
   <%= search_form_for(@q, url: analytics_path ) do |f| %>
     <div class="input-group">
-      <%= f.search_field :exam_title_cont, class: "form-control offset-sm-6", placeholder: "キーワード検索" %>
+      <%= f.search_field :exams_title_cont, class: "form-control offset-sm-6", placeholder: "キーワード検索" %>
       <%= button_tag type: "submit", class: "input-group-append input-group-text" do %>
         <i class="fas fa-search"></i>
       <% end %>
@@ -32,9 +32,10 @@
     <% @questions.each do |question| %>
       <tr>
         <th scope="row" class="text-center"><%= question.id %></th>
-        <td><%= question.exam.title %></td>
+        <!-- exams.firstとしているのは応急処置。今後仕様変更も検討。-->
+        <td><%= question.exams.first.title %></td>
         <td><%= question.rate ? "#{question.rate}%" : "算出なし" %></td>
-        <td class="text-center"><%= link_to t("views.link.show"), exam_path(question.exam) %></td>
+        <td class="text-center"><%= link_to t("views.link.show"), exam_path(question.exams) %></td>
       </tr>
     <% end %>
   </tbody>
