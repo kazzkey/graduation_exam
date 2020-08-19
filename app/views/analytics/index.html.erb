@@ -1,0 +1,41 @@
+<div class="jumbotron">
+  <h2>試験分析画面(教員用)</h2>
+  <%= button_to calculate_analytics_path, method: :patch,
+                                  class: "btn btn-primary float-right" do %>
+    <i class="fas fa-chart-bar"> 正答率を算出</i>
+  <% end %>
+  <br>
+</div>
+
+<div>
+  <%= search_form_for(@q, url: analytics_path ) do |f| %>
+    <div class="input-group">
+      <%= f.search_field :exam_title_cont, class: "form-control offset-sm-6", placeholder: "キーワード検索" %>
+      <%= button_tag type: "submit", class: "input-group-append input-group-text" do %>
+        <i class="fas fa-search"></i>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<table class="table table-sm table-bordered table-hover my-4">
+  <thead class="alert-primary">
+    <tr class="text-center">
+      <th style="width:50px;"><%= sort_link(@q, :id) %></th>
+      <th style="width:40%;"><%= sort_link(@q, :exam_title) %></th>
+      <th><%= sort_link(@q, :rate) %></th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr>
+        <th scope="row" class="text-center"><%= question.id %></th>
+        <td><%= question.exam.title %></td>
+        <td><%= question.rate ? "#{question.rate}%" : "算出なし" %></td>
+        <td class="text-center"><%= link_to t("views.link.show"), exam_path(question.exam) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

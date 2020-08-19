@@ -24,8 +24,17 @@
   </div>
 
   <div class="card col-5 mx-auto my-2 p-4 border-primary">
+    <%= link_to analytics_path, class: "stretched-link" do %>
+      試験分析画面<i class="fas fa-chart-bar fa-2x float-right"></i>
+    <% end %>
+  </div>
+
+  <div class="card col-5 mx-auto my-2 p-4 border-primary">
     <%= link_to teacher_users_path, class: "stretched-link" do %>
       ユーザ管理画面<i class="fas fa-user fa-2x float-right"></i>
     <% end %>
+  </div>
+
+  <div class="card col-5 mx-auto my-2 p-4 border-white">
   </div>
 </div>

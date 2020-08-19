@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_04_014922) do
+ActiveRecord::Schema.define(version: 2020_08_18_064631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2020_08_04_014922) do
     t.string "image"
     t.integer "correct_answer", null: false
     t.string "description"
-    t.integer "rate"
+    t.decimal "rate"
     t.bigint "exam_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -19,6 +19,7 @@ ja:
         content: 問題文
         correct_answer: 正解
         description: 解説
+        rate: 正答率
       answer_sheet:
         score: 得点
       answer:
