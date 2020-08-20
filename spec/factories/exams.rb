@@ -28,7 +28,8 @@ FactoryBot.define do
     release { false }
 
     after( :create ) do |exam|
-      create :question, exam: exam
+      create :question
+      create :exam_question
     end
   end
 end

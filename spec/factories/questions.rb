@@ -27,6 +27,6 @@ FactoryBot.define do
     image { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/factories/test.jpg')) }
     correct_answer { 1 }
     description { 'QuestionDescription' }
-    exam { nil }
+    exam_id { 1 }
   end
 end
