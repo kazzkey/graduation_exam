@@ -20,7 +20,8 @@
 #
 class Exam < ApplicationRecord
   belongs_to :subject
-  has_many :questions, dependent: :destroy
+  has_many :exam_questions, dependent: :destroy
+  has_many :questions, through: :exam_questions
   accepts_nested_attributes_for :questions, allow_destroy: true
   has_many :answer_sheets
 

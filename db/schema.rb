@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_18_064631) do
+ActiveRecord::Schema.define(version: 2020_08_19_081927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 2020_08_18_064631) do
     t.datetime "updated_at", null: false
     t.index ["answer_sheet_id"], name: "index_comments_on_answer_sheet_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "exam_questions", force: :cascade do |t|
+    t.bigint "exam_id"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_exam_questions_on_exam_id"
+    t.index ["question_id"], name: "index_exam_questions_on_question_id"
   end
 
   create_table "exams", force: :cascade do |t|
@@ -115,6 +124,8 @@ ActiveRecord::Schema.define(version: 2020_08_18_064631) do
   add_foreign_key "answers", "questions"
   add_foreign_key "comments", "answer_sheets"
   add_foreign_key "comments", "users"
+  add_foreign_key "exam_questions", "exams"
+  add_foreign_key "exam_questions", "questions"
   add_foreign_key "exams", "subjects"
   add_foreign_key "notifications", "answer_sheets"
   add_foreign_key "notifications", "comments"

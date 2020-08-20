@@ -21,7 +21,8 @@
 #  fk_rails_...  (exam_id => exams.id)
 #
 class Question < ApplicationRecord
-  belongs_to :exam
+  has_many :exam_questions, dependent: :destroy
+  has_many :exams, through: :exam_questions
   has_many :answers
   mount_uploader :image, ImageUploader
 
