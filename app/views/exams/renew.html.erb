@@ -1,0 +1,110 @@
+<div class="card border-primary mx-auto p-4">
+
+  <!-- Form (Exam info.) -->
+  <%= form_with(model: @exam, local: true) do |form| %>
+    <div>
+      <h3 class="text-primary">試験情報入力欄
+        <p style="font-size:0.8rem;"> ※ 公開にチェックを入れると試験情報が公開されます。</p>
+      </h3>
+
+      <% if @exam.errors.any? %>
+        <div id="error_explanation" class="text-warning">
+          <ul>
+          <% @exam.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+
+      <div class="form-row">
+        <div class="form-group col">
+          <%= form.label :title %>
+          <%= form.text_field :title, class: "form-control", required: true %>
+        </div>
+
+        <div class="form-group col-xs-2">
+          <%= form.label :release %><br>
+          <%= form.check_box :release, class: "form-control" %>
+        </div>
+
+        <div class="w-100"></div>
+
+        <div class="form-group col">
+          <%= form.label :deadline %>
+          <%= form.date_field :deadline, class: "form-control", required: true %>
+        </div>
+
+        <!-- class="subject"はRSpec用の設定 -->
+        <div class="subject form-group col">
+          <%= form.label :subject %>
+          <%= form.collection_select(
+            :subject_id, Subject.all, :id, :name,
+            { prompt: "選択してください" }, class: "form-control",
+            required: true
+          ) %>
+        </div>
+      </div>
+    </div>
+
+    <hr class="border-primary">
+
+    <div>
+      <h5 class="text-primary mb-4">問題選択欄
+        <span class="ml-3 border-bottom border-primary">※ 5問選択してください。</span>
+      </h5>
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr class="text-center">
+            <th class="small">Id</th>
+            <th class="small">画像</th>
+            <th class="small">問題文</th>
+            <th class="small">正答率</th>
+            <th colspan="1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= form.collection_check_boxes(:question_ids, @questions, :id, :id) do |question| %>
+            <tr>
+              <td class="text-center"><%= question.object.id %></td>
+              <td class="text-center" style="min-width:50px;">
+                <% if question.object.image.present? %>
+                  有
+                <% elsif %>
+                  無
+                <% end %>
+              </td>
+              <td style="width:70%;"><%= simple_format question.object.content %></td>
+              <td><%= question.object.rate ? "#{question.object.rate}%" : "算出なし" %></td>
+              <td><%= question.check_box class: "q-check",
+                                         style: "-webkit-transform:scale(2,2);"
+                  %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-4">
+      <%= form.submit class: "form-control btn btn-primary col mx-1", disabled: true %>
+    </div>
+  <% end %>
+</div>
+
+<!-- Jquery for Checking the number of Questions -->
+<script>
+  $("input[type=checkbox]").click(function(){
+    var count = $(".q-check:checked").length;
+    var not = $('.q-check').not(':checked')
+
+    if(count >= 5) {
+      not.attr("disabled",true);
+      $('input[type=submit]').attr("disabled",false);
+    } else {
+      not.attr("disabled",false);
+      $('input[type=submit]').attr("disabled",true);
+    }
+  });
+</script>

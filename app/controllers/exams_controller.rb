@@ -12,13 +12,26 @@ class ExamsController < ApplicationController
     5.times { @exam.questions.build }
   end
 
+  def renew
+    @exam = Exam.new
+    @questions = Question.order(:id)
+  end
+
   def create
     @exam = Exam.new(exam_params)
+    @path = Rails.application.routes.recognize_path(request.referer)
+
     if @exam.save
       redirect_to exams_path
     else
       flash.now[:alert] = t("views.messages.failed_to_create")
-      render :new
+
+      case @path[:action]
+      when "new"
+        render :new
+      when "renew"
+        render :renew
+      end
     end
   end
 
@@ -47,7 +60,7 @@ class ExamsController < ApplicationController
     @exam = Exam.find(params[:id])
   end
   def exam_params
-    params.require(:exam).permit(:title, :deadline, :release, :subject_id,
+    params.require(:exam).permit(:title, :deadline, :release, :subject_id, { question_ids: [] },
                                     questions_attributes:
                                     %i[id _destroy image content correct_answer description exam_id]
                                    )
