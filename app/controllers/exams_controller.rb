@@ -14,7 +14,12 @@ class ExamsController < ApplicationController
 
   def renew
     @exam = Exam.new
-    @questions = Question.order(:id)
+    @questions = Question.order(:id).page(params[:page]).per(10)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create

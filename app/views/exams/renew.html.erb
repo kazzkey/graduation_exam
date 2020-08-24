@@ -54,37 +54,9 @@
       <h5 class="text-primary mb-4">問題選択欄
         <span class="ml-3 border-bottom border-primary">※ 5問選択してください。</span>
       </h5>
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr class="text-center">
-            <th class="small">Id</th>
-            <th class="small">画像</th>
-            <th class="small">問題文</th>
-            <th class="small">正答率</th>
-            <th colspan="1"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <%= form.collection_check_boxes(:question_ids, @questions, :id, :id) do |question| %>
-            <tr>
-              <td class="text-center"><%= question.object.id %></td>
-              <td class="text-center" style="min-width:50px;">
-                <% if question.object.image.present? %>
-                  有
-                <% elsif %>
-                  無
-                <% end %>
-              </td>
-              <td style="width:70%;"><%= simple_format question.object.content %></td>
-              <td><%= question.object.rate ? "#{question.object.rate}%" : "算出なし" %></td>
-              <td><%= question.check_box class: "q-check",
-                                         style: "-webkit-transform:scale(2,2);"
-                  %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <div id="pagenate">
+        <%= render 'renew_page' %>
+      </div>
     </div>
 
     <div class="mt-4">
@@ -92,19 +64,3 @@
     </div>
   <% end %>
 </div>
-
-<!-- Jquery for Checking the number of Questions -->
-<script>
-  $("input[type=checkbox]").click(function(){
-    var count = $(".q-check:checked").length;
-    var not = $('.q-check').not(':checked')
-
-    if(count >= 5) {
-      not.attr("disabled",true);
-      $('input[type=submit]').attr("disabled",false);
-    } else {
-      not.attr("disabled",false);
-      $('input[type=submit]').attr("disabled",true);
-    }
-  });
-</script>

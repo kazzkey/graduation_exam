@@ -20,6 +20,7 @@ gem 'chartkick'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.5.0'
 gem 'font-awesome-sass', '~> 5.13.0'
+gem 'kaminari'
 
 # Backend
 gem 'jbuilder', '~> 2.5'
