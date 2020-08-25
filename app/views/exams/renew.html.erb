@@ -50,12 +50,25 @@
 
     <hr class="border-primary">
 
+    <!-- Questions info. -->
     <div>
-      <h5 class="text-primary mb-4">問題選択欄
+      <div class="mb-4">
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+          <i class="fas fa-mouse-pointer"> 問題選択</i>
+        </button>
         <span class="ml-3 border-bottom border-primary">※ 5問選択してください。</span>
-      </h5>
-      <div id="pagenate">
+      </div>
+
+      <!-- Modal -->
+      <div>
         <%= render 'renew_page' %>
+      </div>
+
+      <div class="card p-3" style="height:120px;">
+        <p>選択リスト(id)</p>
+        <ul id="check-list" class="list-inline mx-auto"></ul>
       </div>
     </div>
 
