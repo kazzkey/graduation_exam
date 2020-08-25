@@ -49,7 +49,7 @@ RSpec.describe '試験作成機能', type: :system do
     context '項目をすべて入力して作成した場合(画像は1問目のみとする)' do
       before do
         visit exams_path
-        click_on 'New'
+        click_on '新規作成'
         fill_in '試験名', with: 'test_title'
         find('.subject').select('Japanese')
         fill_in '締切', with: '002020-12-31'
