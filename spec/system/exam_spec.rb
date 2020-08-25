@@ -128,4 +128,53 @@ RSpec.describe '試験作成機能', type: :system do
       end
     end
   end
+
+  describe '復習試験作成画面' do
+    before do
+      visit new_user_session_path
+      fill_in '学籍番号', with: 1
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログイン'
+      FactoryBot.create(:exam)
+      for n in 1..5 do
+        FactoryBot.create(:question, id: n, content: "Content#{n}")
+      end
+    end
+
+    context '試験を作成した場合' do
+      before do
+        visit exams_path
+        click_on '復習問題'
+        fill_in '試験名', with: 'REtest_title'
+        find('.subject').select('Japanese')
+        fill_in '締切', with: '002020-12-31'
+        check '公開'
+        click_on '問題選択'
+        for n in 0..4 do
+          all('.q-check')[n].set(true)
+        end
+        click_on 'Close', match: :first
+        sleep 0.5
+        click_on '送信'
+      end
+
+      it 'データが保存されている' do
+        visit exams_path
+        expect(page).to have_content 'REtest_title'
+        expect(page).to have_content '2020年12月31日(木)'
+        expect(page).to have_content '公開'
+      end
+
+      it '詳細ページには問題が5問表示されている' do
+        visit exams_path
+        all('.fa-file-alt')[1].click
+        sleep 0.5
+        expect(page).to have_content 'Content1'
+        expect(page).to have_content 'Content2'
+        expect(page).to have_content 'Content3'
+        expect(page).to have_content 'Content4'
+        expect(page).to have_content 'Content5'
+      end
+    end
+  end
 end
