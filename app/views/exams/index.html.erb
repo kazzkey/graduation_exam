@@ -1,8 +1,13 @@
 <div class="jumbotron">
   <h2>試験作成画面(教員用)</h2>
-  <%= link_to new_exam_path, class: "btn btn-primary float-right" do %>
-    <i class="fas fa-pencil-alt"> New</i>
-  <% end %>
+  <div class="float-right">
+    <%= link_to new_exam_path, class: "btn btn-primary m-1" do %>
+      <i class="fas fa-pencil-alt"> 新規作成</i>
+    <% end %>
+    <%= link_to renew_exams_path, class: "btn btn-primary m-1" do %>
+      <i class="fas fa-sync-alt"> 復習問題</i>
+    <% end %>
+  </div>
   <br>
 </div>
 

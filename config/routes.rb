@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   resources :subjects, only: %i(index create edit update destroy)
 
   resources :exams do
+    get :renew, on: :collection
     resources :answer_sheets, only: %i(new create result) do
       get :result, on: :member
     end

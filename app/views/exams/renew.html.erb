@@ -1,0 +1,79 @@
+<div class="card border-primary mx-auto p-4">
+
+  <!-- Form (Exam info.) -->
+  <%= form_with(model: @exam, local: true) do |form| %>
+    <div>
+      <h3 class="text-primary">試験情報入力欄
+        <p style="font-size:0.8rem;"> ※ 公開にチェックを入れると試験情報が公開されます。</p>
+      </h3>
+
+      <% if @exam.errors.any? %>
+        <div id="error_explanation" class="text-warning">
+          <ul>
+          <% @exam.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+
+      <div class="form-row">
+        <div class="form-group col">
+          <%= form.label :title %>
+          <%= form.text_field :title, class: "form-control", required: true %>
+        </div>
+
+        <div class="form-group col-xs-2">
+          <%= form.label :release %><br>
+          <%= form.check_box :release, class: "form-control" %>
+        </div>
+
+        <div class="w-100"></div>
+
+        <div class="form-group col">
+          <%= form.label :deadline %>
+          <%= form.date_field :deadline, class: "form-control", required: true %>
+        </div>
+
+        <!-- class="subject"はRSpec用の設定 -->
+        <div class="subject form-group col">
+          <%= form.label :subject %>
+          <%= form.collection_select(
+            :subject_id, Subject.all, :id, :name,
+            { prompt: "選択してください" }, class: "form-control",
+            required: true
+          ) %>
+        </div>
+      </div>
+    </div>
+
+    <hr class="border-primary">
+
+    <!-- Questions info. -->
+    <div>
+      <div class="mb-4">
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+          <i class="fas fa-mouse-pointer"> 問題選択</i>
+        </button>
+        <span class="ml-3 border-bottom border-primary">※ 5問選択してください。</span>
+      </div>
+
+      <!-- Modal -->
+      <div>
+        <%= render 'renew_page' %>
+      </div>
+
+      <div class="card p-3" style="height:120px;">
+        <p>選択リスト(id)</p>
+        <ul id="check-list" class="list-inline mx-auto"></ul>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <%= form.submit class: "form-control btn btn-primary col mx-1", disabled: true %>
+    </div>
+  <% end %>
+</div>
