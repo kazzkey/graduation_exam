@@ -7,24 +7,27 @@
   <br>
 </div>
 
-<div>
-  <%= search_form_for(@q, url: analytics_path ) do |f| %>
-    <div class="input-group">
-      <%= f.search_field :exams_title_cont, class: "form-control offset-sm-6", placeholder: "キーワード検索" %>
-      <%= button_tag type: "submit", class: "input-group-append input-group-text" do %>
-        <i class="fas fa-search"></i>
-      <% end %>
-    </div>
-  <% end %>
+
+<div class="row">
+  <h3 class="text-primary col">問題分析</h3>
+  <div class="col">
+    <%= search_form_for(@q, url: analytics_path ) do |f| %>
+      <div class="input-group">
+        <%= f.search_field :exams_title_cont, class: "form-control", placeholder: "キーワード検索" %>
+        <%= button_tag type: "submit", class: "input-group-append input-group-text" do %>
+          <i class="fas fa-search"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
-<table class="table table-sm table-bordered table-hover my-4">
+<table class="table table-sm table-bordered table-hover">
   <thead class="alert-primary">
     <tr class="text-center">
       <th style="width:50px;"><%= sort_link(@q, :id) %></th>
-      <th style="width:40%;"><%= sort_link(@q, :exam_title) %></th>
-      <th><%= sort_link(@q, :rate) %></th>
-      <th colspan="1"></th>
+      <th style="width:25%;"><%= sort_link(@q, :rate) %></th>
+      <th><%= sort_link(@q, :exam_title, "採用されている試験名") %></th>
     </tr>
   </thead>
 
@@ -32,11 +35,18 @@
     <% @questions.each do |question| %>
       <tr>
         <th scope="row" class="text-center"><%= question.id %></th>
-        <!-- exams.firstとしているのは応急処置。今後仕様変更も検討。-->
-        <td><%= question.exams.first.title %></td>
         <td><%= question.rate ? "#{question.rate}%" : "算出なし" %></td>
-        <td class="text-center"><%= link_to t("views.link.show"), exam_path(question.exams) %></td>
+        <td>
+          <% question.exams.each_with_index do |exam, i| %>
+            <%= link_to exam.title, exam_path(exam) %>
+            <% if i != question.exams.length - 1 %>/<% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<div class="my-3">
+  <%= paginate @questions %>
+</div>

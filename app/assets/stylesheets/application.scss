@@ -17,6 +17,17 @@ $warning: #E91E63;
   }
 }
 
+.pagination>li>a {
+  border: none;
+  margin: 0 10px;
+}
+.pagination>.active>a {
+  border-radius: 15px;
+}
+.pagination>li>a:hover {
+  border-radius: 15px;
+}
+
 @import "bootstrap";
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
