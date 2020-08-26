@@ -27,7 +27,7 @@
       <%= visitor.name %>さんが
       <% case notification.action %>
       <% when 'comment' %>
-        コメンしました</span>
+        コメントしました</span>
         <% if notification.answer_sheet.user_id == visited.id %>
           <p class="mt-2">「<%= Comment.find_by(id: notification.comment_id)&.content %>」</p>
         <% end %>
