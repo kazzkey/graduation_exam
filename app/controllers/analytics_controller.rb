@@ -4,7 +4,7 @@ class AnalyticsController < ApplicationController
   def index
     @q = Question.select(:id, :exam_id, :content, :rate)
                  .order(:id).ransack(params[:q])
-    @questions = @q.result.includes(:exams, :exam_questions)
+    @questions = @q.result.includes(:exams).page(params[:page]).per(10)
 
   end
 
