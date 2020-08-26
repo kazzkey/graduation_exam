@@ -22,7 +22,7 @@
   </div>
 </div>
 
-<table class="table table-sm table-bordered table-hover my-1">
+<table class="table table-sm table-bordered table-hover">
   <thead class="alert-primary">
     <tr class="text-center">
       <th style="width:50px;"><%= sort_link(@q, :id) %></th>
@@ -46,4 +46,7 @@
     <% end %>
   </tbody>
 </table>
-<%= paginate @questions %>
+
+<div class="my-3">
+  <%= paginate @questions %>
+</div>
