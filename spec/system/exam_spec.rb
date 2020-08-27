@@ -25,17 +25,6 @@ RSpec.describe '試験作成機能', type: :system do
         expect( Question.count ).to eq 1
       end
     end
-
-    context '試験を削除した場合' do
-      it '削除された試験は存在しなくなり、紐付けられた問題も削除される' do
-        visit exams_path
-        find('.fa-trash-alt').click
-        page.driver.browser.switch_to.alert.accept
-        sleep 0.5
-        expect(page).not_to have_content 'ExamTitle'
-        expect( Question.count ).to eq 0
-      end
-    end
   end
 
   describe '試験作成画面' do
@@ -125,6 +114,44 @@ RSpec.describe '試験作成機能', type: :system do
         click_on '更新'
         sleep 0.5
         expect(page).to have_content '公開'
+      end
+    end
+  end
+
+  describe '試験削除画面' do
+    before do
+      visit new_user_session_path
+      fill_in '学籍番号', with: 1
+      fill_in 'パスワード', with: 'password'
+      click_button 'ログイン'
+      exam = FactoryBot.create(:exam_with_question)
+    end
+
+    context 'まだ解答されていない試験だった場合' do
+      it '削除された試験は存在しなくなり、紐付けられた問題も削除される' do
+        visit exams_path
+        find('.fa-trash-alt').click
+        page.driver.browser.switch_to.alert.accept
+        sleep 0.5
+        expect(page).not_to have_content 'ExamTitle'
+        expect( Question.count ).to eq 0
+      end
+    end
+
+    context 'すでに解答されている試験だった場合' do
+      before do
+        FactoryBot.create(:user)
+        FactoryBot.create(:answer_sheet_with_answer)
+      end
+
+      it '試験は削除できない' do
+        visit exams_path
+        find('.fa-trash-alt').click
+        page.driver.browser.switch_to.alert.accept
+        sleep 0.5
+        expect(page).to have_content 'ExamTitle'
+        expect( Question.count ).to eq 1
+        expect(page).to have_content 'すでに解答されている試験は削除できません'
       end
     end
   end

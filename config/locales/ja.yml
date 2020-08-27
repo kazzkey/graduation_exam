@@ -238,6 +238,7 @@ ja:
       failed_to_create: 送信できませんでした…
       failed_to_update: 更新できませんでした…
       deleted: 削除しました
+      cant_delete_if_exam_has_answer_sheets: すでに解答されている試験は削除できません
     pagination:
       first: <i class="fas fa-angle-double-left"></i>
       last: <i class="fas fa-angle-double-right"></i>

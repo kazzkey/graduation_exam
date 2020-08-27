@@ -20,10 +20,10 @@
 #
 class Exam < ApplicationRecord
   belongs_to :subject
+  has_many :answer_sheets, dependent: :restrict_with_error
   has_many :exam_questions, dependent: :destroy
   has_many :questions, through: :exam_questions
   accepts_nested_attributes_for :questions, allow_destroy: true
-  has_many :answer_sheets
 
   validates :title, presence: true, length: { maximum: 255 }
   validate :date_not_before_today

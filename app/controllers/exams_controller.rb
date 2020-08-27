@@ -49,8 +49,11 @@ class ExamsController < ApplicationController
   end
 
   def destroy
-    @exam.destroy
-    redirect_to exams_path, notice: t("views.messages.deleted")
+    if @exam.destroy
+      redirect_to exams_path, notice: t("views.messages.deleted")
+    else
+      redirect_to exams_path, alert: t("views.messages.cant_delete_if_exam_has_answer_sheets")
+    end
   end
 
   private
