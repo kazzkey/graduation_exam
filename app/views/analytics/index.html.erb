@@ -23,6 +23,7 @@
 </div>
 
 <table class="table table-sm table-bordered table-hover">
+  <caption><i class="fas fa-search-plus fa-fw"></i> idにカーソルをあてると、問題文が表示されます。</caption>
   <thead class="alert-primary">
     <tr class="text-center">
       <th style="width:50px;"><%= sort_link(@q, :id) %></th>
@@ -34,7 +35,10 @@
   <tbody>
     <% @questions.each do |question| %>
       <tr>
-        <th scope="row" class="text-center"><%= question.id %></th>
+        <th scope="row" class="text-center" data-toggle="tooltip" data-html="true"
+            data-delay='{ "show": 200 }' data-placement="right" title="<%= simple_format question.content %>">
+          <%= question.id %>
+        </th>
         <td><%= question.rate ? "#{question.rate}%" : "算出なし" %></td>
         <td>
           <% question.exams.each_with_index do |exam, i| %>
@@ -50,3 +54,9 @@
 <div class="my-3">
   <%= paginate @questions %>
 </div>
+
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  })
+</script>
