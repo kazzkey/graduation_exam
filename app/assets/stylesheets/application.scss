@@ -28,6 +28,21 @@ $warning: #E91E63;
   border-radius: 15px;
 }
 
+.tooltip {
+  opacity: 1 !important;
+}
+.tooltip > .tooltip-inner {
+  text-align: left;
+  padding: 20px;
+  background-color: $primary;
+}
+.tooltip-auto[x-placement^=bottom] .arrow::before,
+.tooltip .arrow::before {
+  bottom: 0;
+  border-width: 0 !important;
+  border-bottom-color: #fff !important;
+}
+
 @import "bootstrap";
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
