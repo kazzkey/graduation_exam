@@ -3,7 +3,7 @@ class ExamsController < ApplicationController
   before_action :set_exam, only: %i(show edit update destroy)
 
   def index
-    @q = Exam.ransack(params[:q])
+    @q = Exam.order(id: :desc).ransack(params[:q])
     @exams = @q.result(distinct: true)
   end
 
