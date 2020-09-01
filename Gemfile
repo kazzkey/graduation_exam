@@ -28,6 +28,8 @@ gem 'seed-fu'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'ransack'
+gem 'fog-aws'
+gem 'dotenv-rails'
 
 # Authentication
 gem 'devise'
