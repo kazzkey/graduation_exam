@@ -48,3 +48,8 @@ namespace :deploy do
     end
   end
 end
+
+require 'seed-fu/capistrano3'
+
+# Trigger the task before publishing
+before 'deploy:publishing', 'db:seed_fu'
