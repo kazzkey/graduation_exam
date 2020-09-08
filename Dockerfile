@@ -4,6 +4,7 @@ RUN mkdir /graduation_exam
 WORKDIR /graduation_exam
 COPY Gemfile /graduation_exam/Gemfile
 COPY Gemfile.lock /graduation_exam/Gemfile.lock
+RUN gem install bundler
 RUN bundle install
 COPY . /graduation_exam
 
