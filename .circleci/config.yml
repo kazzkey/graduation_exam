@@ -25,16 +25,15 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      - run:
+      name: DB の待機
+      command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
       # Rspec
       - run:
           name: Rspec
-          command: bundle exec rspec --profile 10 \
-                        --format RspecJunitFormatter \
-                        --out test_results/rspec.xml \
-                        --format progress \
-                        $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+          command: bundle exec rspec
 
 workflows:
   version: 2
