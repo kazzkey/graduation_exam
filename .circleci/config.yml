@@ -33,6 +33,5 @@ jobs:
 
 workflows:
   version: 2
-  rspec:
-    jobs:
-      - rspec:
+  jobs:
+    - rspec:
