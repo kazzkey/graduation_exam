@@ -26,6 +26,7 @@ jobs:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
       - run: dockerize -wait tcp://127.0.0.1:5432 -timeout 1m
+      - run: cp -v config/database.ci.yml config/database.yml
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
       # Rspec
