@@ -35,9 +35,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
-      # Run rspec in parallel
-      - ruby/rspec-test
-      - ruby/rubocop-check
+      - run: bundle exec rspec
 
 workflows:
   version: 2
