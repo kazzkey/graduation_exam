@@ -35,7 +35,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: RAILS_ENV=test bundle exec rake db:create
       - run: bundle exec rake db:schema:load
-      - run: bundle exec rspec
+      - ruby/rspec-test
 
 workflows:
   version: 2
