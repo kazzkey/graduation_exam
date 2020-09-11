@@ -36,11 +36,12 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
+      - run: bundle install
       - run: mv config/database.yml.ci config/database.yml
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: RAILS_ENV=test bundle exec rake db:create db:migrate
+      - run: RAILS_ENV=test bundle exec rake db:create
       - run: bundle exec rake db:schema:load
       - ruby/rspec-test
 
