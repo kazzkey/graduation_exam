@@ -22,9 +22,9 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
   # Dockerを使わないときはコメントアウト
-  host: db
-  username: postgres
-  password: password
+  # host: db
+  # username: postgres
+  # password: password
 
 development:
   <<: *default

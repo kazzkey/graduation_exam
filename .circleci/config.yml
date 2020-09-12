@@ -32,9 +32,6 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-      - image: selenium/standalone-chrome-debug
-        logging:
-          driver: none
       - run: mv config/database.yml.ci config/database.yml
       - run:
           name: Wait for DB
