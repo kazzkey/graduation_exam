@@ -1,41 +1,47 @@
-version: 2
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.1.0
+
 jobs:
-  rspec:
+  build:
     docker:
-      - image: circleci/ruby:2.6.5
+      - image: circleci/ruby:2.6.5-browsers
         environment:
-          RAILS_ENV: test
-          POSTGRES_HOST: 127.0.0.1
-      - image: circleci/postgres
-        environment:
-          POSTGRES_USER: "postgres"
-          POSTGRES_PASSWORD: "password"
-          POSTGRES_DB: graduation_exam_test
-    working_directory: ~/repo
+          BUNDLER_VERSION: 2.1.4
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            - v1-dependencies-
-      - run: gem install bundler
-      - run: bundle install
-      - run: bundle update --bundler
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-      - run: dockerize -wait tcp://127.0.0.1:5432 -timeout 120s
-      - run: cp -v config/database.ci.yml config/database.yml
+      - ruby/install-deps
+
+  test:
+    parallelism: 3
+    docker:
+      - image: circleci/ruby:2.6.5-browsers
+        environment:
+          DB_HOST: 127.0.0.1
+          RAILS_ENV: test
+          BUNDLER_VERSION: 2.1.4
+      - image: circleci/postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: graduation_exam_test
+          POSTGRES_PASSWORD: password
+    steps:
+      - checkout
+      - ruby/install-deps
+      - run: mv config/database.yml.ci config/database.yml
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
-      # Rspec
-      - run:
-          name: Rspec
-          command: bundle exec rspec
+      - ruby/rspec-test
 
 workflows:
   version: 2
-  rubocop_rspec:
+  build_and_test:
     jobs:
-      - rspec
+      - build
+      - test:
+          requires:
+            - build
