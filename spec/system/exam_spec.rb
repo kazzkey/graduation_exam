@@ -174,7 +174,8 @@ RSpec.describe '試験作成機能', type: :system do
         click_on '復習問題'
         fill_in '試験名', with: 'REtest_title'
         find('.subject').select('Japanese')
-        fill_in '締切', with: '002020-12-31'
+        # fill_in '締切', with: '002020-12-31'
+        select_date('2020,12,31', from: '締切')
         check '公開'
         click_on '問題選択'
         for n in 0..4 do
