@@ -9,6 +9,7 @@ jobs:
       - image: circleci/ruby:2.6.5-browsers
         environment:
           BUNDLER_VERSION: 2.1.4
+          TZ: "Asia/Tokyo"
     steps:
       - checkout
       - ruby/install-deps
@@ -21,6 +22,7 @@ jobs:
           DB_HOST: 127.0.0.1
           RAILS_ENV: test
           BUNDLER_VERSION: 2.1.4
+          TZ: "Asia/Tokyo"
       - image: circleci/postgres
         environment:
           POSTGRES_USER: postgres
