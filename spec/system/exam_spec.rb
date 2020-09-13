@@ -41,9 +41,9 @@ RSpec.describe '試験作成機能', type: :system do
         click_on '新規作成'
         fill_in '試験名', with: 'test_title'
         find('.subject').select('Japanese')
-        fill_in '締切', with: '2020-12-31'
+        fill_in '締切', with: '002020-12-31'
         check '公開'
-        find('.image_form_1', visible: false, match: :first).set("#{Rails.root}/spec/factories/test.jpg")
+        # find('.image_form_1', visible: false, match: :first).set("#{Rails.root}/spec/factories/test.jpg")
         for n in 0..4 do
           all('textarea')[n].set("QuestionContent#{n}")
           # selectの最初の要素が教科の選択なので、それを除くため"n+1"としている。
@@ -110,7 +110,7 @@ RSpec.describe '試験作成機能', type: :system do
         find('.fa-edit').click
         sleep 0.5
         check '公開'
-        fill_in '締切', with: '2020-12-31'
+        fill_in '締切', with: '002020-12-31'
         click_on '更新'
         sleep 0.5
         expect(page).to have_content '公開'
@@ -194,7 +194,7 @@ RSpec.describe '試験作成機能', type: :system do
 
       it '詳細ページには問題が5問表示されている' do
         visit exams_path
-        all('.fa-file-alt')[1].click
+        all('.fa-file-alt')[0].click
         sleep 0.5
         expect(page).to have_content 'Content1'
         expect(page).to have_content 'Content2'
