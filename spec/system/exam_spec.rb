@@ -43,7 +43,7 @@ RSpec.describe '試験作成機能', type: :system do
         find('.subject').select('Japanese')
         fill_in '締切', with: '002020-12-31'
         check '公開'
-        # find('.image_form_1', visible: false, match: :first).set("#{Rails.root}/spec/factories/test.jpg")
+        find('.image_form_1', visible: false, match: :first).set("#{Rails.root}/spec/factories/test.jpg")
         for n in 0..4 do
           all('textarea')[n].set("QuestionContent#{n}")
           # selectの最初の要素が教科の選択なので、それを除くため"n+1"としている。
@@ -174,7 +174,7 @@ RSpec.describe '試験作成機能', type: :system do
         click_on '復習問題'
         fill_in '試験名', with: 'REtest_title'
         find('.subject').select('Japanese')
-        fill_in '締切', with: '002020-12-31'
+        fill_in '締切', with: '2020/12/31'
         check '公開'
         click_on '問題選択'
         for n in 0..4 do
