@@ -41,7 +41,7 @@ RSpec.describe '試験作成機能', type: :system do
         click_on '新規作成'
         fill_in '試験名', with: 'test_title'
         find('.subject').select('Japanese')
-        fill_in '締切', with: '002020-12-31'
+        fill_in '締切', with: Date.current
         check '公開'
         find('.image_form_1', visible: false, match: :first).set("#{Rails.root}/spec/factories/test.jpg")
         for n in 0..4 do
@@ -55,7 +55,7 @@ RSpec.describe '試験作成機能', type: :system do
       it 'データが保存されている' do
         visit exams_path
         expect(page).to have_content 'test_title'
-        expect(page).to have_content '2020年12月31日(木)'
+        expect(page).to have_content I18n.l Date.current, format: :long
         expect(page).to have_content '公開'
       end
 
