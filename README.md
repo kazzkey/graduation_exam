@@ -17,6 +17,8 @@ https://kk-exam.work/
 * Bootstrap4
 * JQuery
 * PostgreSQL
+* Docker(docker-compose)
+* Circle CI
 * AWS (EC2 / S3 / Route53 / ELB / ACM)
 * Nginx
 * Github (Github Flow)
@@ -25,6 +27,9 @@ https://kk-exam.work/
 
 ## ERD
 ![卒業課題_ER図](https://user-images.githubusercontent.com/61282574/91688161-5c0cf500-eb9c-11ea-8682-71e876549132.png)
+
+## 構成図
+![architecture](https://user-images.githubusercontent.com/61282574/93038915-2b8b8780-f681-11ea-8ed3-a6ed34bbc555.png)
 
 ## 設計
 [カタログ設計](https://docs.google.com/spreadsheets/d/e/2PACX-1vS0qJX9DVM8CgiTRwX-6f2CdStV7WGHJHK6OOsTtqzFHD-gv8uaCRjbdsSGyyPZ7bs9W7hyfeH2qw5E/pubhtml?gid=1177389026&single=true)
@@ -61,6 +66,9 @@ https://kk-exam.work/
 #### TDD(テスト駆動開発)の実践
 - RSpecを用いて、テスト駆動開発を行いました。モデルスペックでは基本的なバリデーションチェック、システムスペックではE2Eテストで基本的な動作を網羅しました。
 
+#### Dockerの導入
+- 個人開発ではありますが、チームでの開発を意識し、現アプリケーションに導入しました。
+
 ## 機能における見所
 #### データ分析ツールとしての活用を意識
 - 主要機能としてはテストを作成し、解答するアプリです。しかし、得点や平均点をグラフ化したり、それぞれの問題の正答率を算出するなど、データとして可視化し、活用できるという点を意識して実装しました。
@@ -69,8 +77,6 @@ https://kk-exam.work/
 - フロント部分はフレームワークであるBootstrap4を使用しています。生徒が使用するツールであることをふまえて、タブレットやスマホ表示ができるようレスポンシブデザインにこだわりました。また、スマホ表示時にはフッターメニューが出るようにしており、操作性を考えた実装を心がけました。
 
 ## 今後の課題
-#### Dockerの導入
-- 個人開発ではありますが、チームでの開発を意識し、現在のアプリケーションにDockerを導入するため、現在勉強中です。
 
 #### CI/CDパイプライン構築
 - テストに関してはRSpecを利用し、モデルテスト、E2Eテストを行ってきました。今後、CircleCIを導入し、開発効率アップを目指していきたいと思っています。
